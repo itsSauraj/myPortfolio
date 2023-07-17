@@ -31,6 +31,4 @@ Feel free to reach out to me via email at sauraj.contact@email.com or you can vi
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 Thank you for visiting my GitHub portfolio! I look forward to connecting with you and discussing potential collaborations. If you have any questions or would like to know more about any of my projects, please don't hesitate to reach out. Happy coding!
