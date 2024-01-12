@@ -11,11 +11,15 @@ import {
     git,
     github_w,
     github_b,
+
     none,
+    theBackOffice,
+    yogyaCapital,
+
     windows,
     youtube,
     portfolio,
-    threejs,
+
     python,
     linux,
     mysql,
@@ -23,14 +27,18 @@ import {
     java,
     bootstrap,
     postgresql,
+
     gihubIcon,
     linkedinIcon,
     instagramIcon,
     hackerRankIcon,
+
     whatsapp,
     email,
     feedback,
+
     anonymous,
+    anubhav,
 } from "../assets";
 
 export const navLinks = [
@@ -105,10 +113,6 @@ const technologies = [
         icon: python,
     },
     {
-        name: "Three JS",
-        icon: threejs,
-    },
-    {
         name: "Git",
         icon: git,
     },
@@ -132,14 +136,27 @@ const technologies = [
 
 const experiences = [
     {
-        title: "No work experience",
-        company_name: "no company",
-        icon: none,
+        title: "Full Stack Developer",
+        company_name: "theBackOffice",
+        icon: theBackOffice,
         iconBg: "#FFFFFF",
-        date: "no date for now",
+        date: "24-July-2023 to 1-Nov-2023",
         points: [
-            "For now I don't have any work experience. But if you provide me with a work I will give my best at the work😊",
-            "Help me to increase the size of this timeline."
+            "I worked on the project of the company as a full stack developer.",
+            "Worked on the technologies like React, Django, PostgreSQL, etc.",
+        ],
+    },
+    {
+        title: "Full Stack Developer and Project Head",
+        company_name: "Yogya Capital",
+        icon: yogyaCapital,
+        iconBg: "#FFFFFF",
+        date: "08-Dec-2023 (on going)",
+        points: [
+            "I am working on the project of the company as a full stack developer and project head.",
+            "Working on the technologies like React, Django, PostgreSQL, Bootstrap5, etc.",
+            "I am also managing the team of 4 people.",
+            "I am also responsible for the research and deployment of the project.",
         ],
     },
 ];
@@ -232,11 +249,11 @@ const projects = [
 const testimonials = [
     {
         testimonial:
-            "I thought it was impossible to make a website as beautiful as our product, but Saurabh proved me wrong.",
-        name: "anonymous",
-        designation: "XYZ",
-        company: "anonymous",
-        image: anonymous,
+        "We have no hesitation in recommending Saurabh Yadav for any future roles or positions requiring expertise in Python Development with the Django Framework or Frontend Development with ReactJS. His positive attitude, determination, and technical proficiency makes him a valuable asset to any organisation.",
+        name: "Anubhav Shrivastava",
+        designation: "CTO",
+        company: "theBackOffice",
+        image: anubhav,
     },
 ];
 

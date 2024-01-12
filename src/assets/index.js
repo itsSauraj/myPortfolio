@@ -14,7 +14,6 @@ import html from "./tech/html.png";
 import javascript from "./tech/javascript.png";
 import reactjs from "./tech/reactjs.png";
 import tailwind from "./tech/tailwind.png";
-import threejs from "./tech/threejs.png";
 import python from "./tech/python.png"
 import linux from "./tech/linux.png"
 import C from "./tech/C.png"
@@ -25,8 +24,11 @@ import bootstrap from "./tech/bootstrap.png"
 import postgresql from "./tech/postgresql.png"
 
 import none from "./company/none.png";
+import theBackOffice from "./company/theBackOffice.png";
+import yogyaCapital from "./company/yogyaCapital.png";
 
 import anonymous from "./testimonials/person.svg"
+import anubhav from "./testimonials/anubhav.jpeg"
 
 import windows from "./projects/windows.png"
 import youtube from "./projects/youtube.png"
@@ -58,7 +60,6 @@ export {
     javascript,
     reactjs,
     tailwind,
-    threejs,
     python,
     mysql,
     linux,
@@ -68,8 +69,11 @@ export {
     postgresql,
 
     none,
+    theBackOffice,
+    yogyaCapital,
 
     anonymous,
+    anubhav,
 
     windows,
     youtube,
