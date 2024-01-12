@@ -1,7 +1,10 @@
+import { lazy, Suspense } from 'react'
+
 import { motion } from 'framer-motion'
 
 import { styles } from '../styles'
 import { ComputersCanvas } from './canvas'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const Hero = () => {
     return (
@@ -21,12 +24,14 @@ const Hero = () => {
                         </span>
                     </h1>
                     <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-                        Learner | Web-Developer | Full-Stack Web Developer
+                        Learner | Full-Stack Web Developer
                     </p>
                 </div>
             </div>
-            
+
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
             <ComputersCanvas />
+            </ErrorBoundary>
             
             <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
                 <a href="#about">
