@@ -20,6 +20,9 @@ import {
     linux,
     mysql,
     C,
+    java,
+    bootstrap,
+    postgresql,
     gihubIcon,
     linkedinIcon,
     instagramIcon,
@@ -112,7 +115,19 @@ const technologies = [
     {
         name: 'Github',
         icon: github_b,
-    }
+    },
+    {
+        name: 'Java',
+        icon: java,
+    },
+    {
+        name: 'Bootstrap',
+        icon: bootstrap,
+    },
+    {
+        name: 'PostgreSQL',
+        icon: postgresql,
+    },
 ];
 
 const experiences = [

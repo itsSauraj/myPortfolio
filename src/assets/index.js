@@ -20,6 +20,9 @@ import linux from "./tech/linux.png"
 import C from "./tech/C.png"
 import mysql from "./tech/mysql.png"
 import github_b from "./tech/github.png";
+import java from "./tech/java.png"
+import bootstrap from "./tech/bootstrap.png"
+import postgresql from "./tech/postgresql.png"
 
 import none from "./company/none.png";
 
@@ -60,6 +63,9 @@ export {
     mysql,
     linux,
     C,
+    java,
+    bootstrap,
+    postgresql,
 
     none,
 
