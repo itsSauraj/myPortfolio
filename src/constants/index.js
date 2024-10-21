@@ -181,8 +181,8 @@ const projects = [
             },
         ],
         image: windows,
-        project_link: "https://codewithsaurabhyadav.github.io/Windows11-Clone",
-        source_code_link: "https://github.com/CodeWithSaurabhYadav/Windows11-Clone.git",
+        project_link: "https://itsSauraj.github.io/Windows11-Clone",
+        source_code_link: "https://github.com/itsSauraj/Windows11-Clone.git",
     },
     {
         name: "Youtube Clone",
@@ -212,7 +212,7 @@ const projects = [
         ],
         image: youtube,
         project_link: "https://youtube-clone-react-18.netlify.app/",
-        source_code_link: "https://github.com/CodeWithSaurabhYadav/YoutubeCloneReact.git",
+        source_code_link: "https://github.com/itsSauraj/YoutubeCloneReact.git",
     },
     {
         name: "My Portfolio",
@@ -242,7 +242,7 @@ const projects = [
         ],
         image: portfolio,
         project_link: "https://saurabhyadav.vercel.app",
-        source_code_link: "https://github.com/CodeWithSaurabhYadav/myPortfolio",
+        source_code_link: "https://github.com/itsSauraj/myPortfolio",
     },
 ];
 
@@ -269,7 +269,7 @@ const models = {
 const socialLinks =[
     {
         name: 'github',
-        link: 'https://github.com/codewithsaurabhyadav',
+        link: 'https://github.com/itsSauraj',
         icon: gihubIcon,
     },
     {
