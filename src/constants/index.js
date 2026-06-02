@@ -265,6 +265,22 @@ const projects = [
 
     // ---- Public / personal projects (with live links) ----
     {
+        name: "S3 File Manager",
+        private: false,
+        description:
+            "A web-based file manager for Amazon S3 and S3-compatible storage (e.g. Cloudflare R2) with a GNOME Files–inspired interface.",
+        tags: [
+            { name: "Next.js", color: C.blue },
+            { name: "React", color: C.green },
+            { name: "TypeScript", color: C.pink },
+            { name: "Tailwind", color: C.orange },
+            { name: "AWS SDK", color: C.green },
+        ],
+        accent: "#9FD4FF",
+        project_link: "https://s3.saurabh-yadav.me",
+        source_code_link: "https://github.com/itsSauraj/s3-gnome-manager",
+    },
+    {
         name: "Windows 11",
         private: false,
         description:
