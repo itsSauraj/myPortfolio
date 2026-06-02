@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom"
 import {
     About, Contact, Experience, Feedbacks,
     Hero, Navbar, Tech, Works, StarsCanvas, Footer,
-    CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, Marquee
+    CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, Marquee, SpotlightGrid
 } from './components'
 
 const MARQUEE_ITEMS = [
@@ -38,9 +38,8 @@ const App = () => {
             <ScrollProgress />
 
             <div className="relative z-0">
-                {/* Ambient space background — sits in the viewport behind content */}
-                <div className="pointer-events-none fixed inset-0 z-0 bg-space-glow" />
-                <div className="pointer-events-none fixed inset-0 z-0 bg-space-grid bg-grid-40 opacity-50" />
+                {/* Ambient space background + cursor spotlight on the grid */}
+                <SpotlightGrid />
 
                 <div className="relative z-10">
                     <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">

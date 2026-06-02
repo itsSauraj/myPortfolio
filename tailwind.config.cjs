@@ -45,6 +45,8 @@ module.exports = {
                 "hero-pattern": "url('/src/assets/herobg.png')",
                 "space-grid":
                     "linear-gradient(rgba(201,184,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(201,184,255,0.05) 1px, transparent 1px)",
+                "space-grid-bright":
+                    "linear-gradient(rgba(201,184,255,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(201,184,255,0.55) 1px, transparent 1px)",
                 "space-glow":
                     "radial-gradient(900px circle at 50% -10%, rgba(169,180,255,0.12), transparent 60%), radial-gradient(700px circle at 100% 20%, rgba(159,212,255,0.08), transparent 55%)",
             },
