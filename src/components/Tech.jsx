@@ -1,38 +1,53 @@
-import React from "react";
-
-import { BallCanvas } from "./canvas";
-import { SectionWrapper } from "../hoc";
-import { technologies } from "../constants";
-
-import { styles } from '../styles'
-
 import { motion } from 'framer-motion'
+
+import { SectionWrapper } from "../hoc"
+import { skillGroups } from "../constants"
+import { styles } from '../styles'
 import { fadeIn, textVariant } from '../utils/motion'
+import { Icon } from '../utils/icons'
 
 const Tech = () => {
     return (
-        <div className='flex flex-row flex-wrap justify-center gap-10'>
-            {technologies.map((technology, index) => (
-                <div className='w-28 h-28' key={technology.name}>
-                    {/* <BallCanvas icon={technology.icon} /> */}
-                    <motion.div
-                        variants={fadeIn("right","spring",0.5 * index,0.75)}
-                        className="w-full green-pink-gradient p-[1px] rounded-full shadow-card"
-                    >
-                        <img src={technology.icon} alt={technology.name}
-                            className="rounded-full w-full h-full 
-                            object-contain bg-tertiary p-3"
-                            options={{
-                                max: 45,
-                                scale: 1,
-                                speed: 450
-                            }}
-                        />
-                    </motion.div>
-                </div>
-            ))}
-        </div>
-    );
-};
+        <>
+            <motion.div variants={textVariant()}>
+                <p className={styles.sectionSubText}>What I work with</p>
+                <h2 className={styles.sectionHeadText}>Skills &amp; Stack</h2>
+            </motion.div>
 
-export default SectionWrapper(Tech, "");
+            <div className='mt-14 flex flex-col gap-10'>
+                {skillGroups.map((group, gi) => (
+                    <motion.div
+                        key={group.title}
+                        variants={fadeIn("up", "spring", 0.1 * gi, 0.6)}
+                    >
+                        <div className='mb-4 flex items-center gap-4'>
+                            <span className='font-mono text-[12px] uppercase tracking-[0.3em] text-accent-lavender'>
+                                {group.title}
+                            </span>
+                            <span className='h-px flex-1 bg-white/10' />
+                        </div>
+                        <div className='flex flex-wrap gap-3'>
+                            {group.skills.map((skill) => (
+                                <div
+                                    key={skill.name}
+                                    data-cursor
+                                    className='group flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-lavender/40 hover:bg-accent-lavender/[0.07] hover:shadow-glow'
+                                >
+                                    <Icon
+                                        name={skill.iconKey}
+                                        className='text-xl text-secondary transition-colors group-hover:text-accent-lavender'
+                                    />
+                                    <span className='font-mono text-[13px] text-white'>
+                                        {skill.name}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                ))}
+            </div>
+        </>
+    )
+}
+
+export default SectionWrapper(Tech, "skills")

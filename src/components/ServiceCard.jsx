@@ -1,35 +1,24 @@
-import { Tilt } from 'react-tilt'
-import { styles } from '../styles'
-
 import { motion } from 'framer-motion'
-import { fadeIn, textVariant } from '../utils/motion'
+import { fadeIn } from '../utils/motion'
+import { Icon } from '../utils/icons'
 
-const ServiceCard = ({index, title, icon}) => {
+const ServiceCard = ({ index, title, iconKey, blurb }) => {
     return (
-        <Tilt className="xs:w-[250px] w-full">
-            <motion.div
-                variants={fadeIn("right","spring",0.5 * index,0.75)}
-                className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
-            >
-                <div
-                    options={{
-                        max: 45,
-                        scale: 1,
-                        speed: 450
-                    }}
-                    className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280] flex flex-col items-center justify-evenly"
-                >
-                    <img 
-                        src={icon} 
-                        alt={title} 
-                        className="w-16 h-16 object-contain"
-                    />
-                    <h3
-                        className='text-white text-[20px] font-bold text-center'
-                    >{title}</h3>
-                </div>
-            </motion.div>
-        </Tilt>
+        <motion.div
+            variants={fadeIn("up", "spring", 0.2 * index, 0.6)}
+            data-cursor
+            className="panel panel-hover w-full p-6 sm:w-[260px]"
+        >
+            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl border border-accent-lavender/40 bg-accent-lavender/10 text-accent-lavender">
+                <Icon name={iconKey} className="text-3xl" />
+            </div>
+            <h3 className="font-display text-[20px] font-bold uppercase tracking-tight text-white">
+                {title}
+            </h3>
+            <p className="mt-3 font-mono text-[13px] leading-relaxed text-secondary">
+                {blurb}
+            </p>
+        </motion.div>
     )
 }
 

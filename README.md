@@ -1,34 +1,58 @@
-# My Portfolio
+# Saurabh Yadav — Portfolio
 
-Welcome to my portfolio repository! This repository serves as a showcase of my projects and skills as a developer.
+A dark, space-themed developer portfolio for **Saurabh Yadav**, Full Stack Engineer.
+Built with React + Vite, pastel-on-black aesthetics, motion-driven animations,
+signature page-wide effects (intro reveal, film grain, custom cursor, smooth
+scroll), and a 3D Three.js layer.
 
 ## Live Link
 
-Check out the live version of my portfolio [here](https://saurabhyadav.vercel.app).
+Check out the live version [here](https://saurabhyadav.vercel.app).
 
-## Technologies Used
+## Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript
-- React.js
-- Node.js
-- Three.js/react-three-fiber
-- emailjs
+- React 18 + Vite 6
+- Tailwind CSS (dark/space pastel design system)
+- Framer Motion + Lenis (smooth scroll)
+- Three.js / react-three-fiber + drei (3D scenes)
+- react-icons (skill icons)
+- EmailJS (contact form)
 
-## About Me
+## Getting Started
 
-Hello I'm Professional front-end Web Developer. I have mastered technologies like HTML*, CSS*, BOOTSTRAP, REACT, PHP, MySql. I also have my hands on technologies like JAVASCRIPT, PHP, TAILWINDCSS, PYTHON, JAVA, C, BASH.Turning your dream website into reality is my job. I'm a quick learner of any new technology so, with my this skill I want to create efficient, scalable and user-friendly solutions that solve real-world problems. Let's work together to bring your ideas to life.
+```bash
+npm install
+cp .env.example .env.local   # then fill in your EmailJS values
+npm run dev                  # http://localhost:5173
+npm run build                # production build
+npm run preview              # preview the build
+```
 
-## Contact
+## Environment Variables
 
-Feel free to reach out to me via email at sauraj.contact@email.com or you can visit [here](https://saurabhyadav.vercel.app/#contact).
+The contact form is configured via `VITE_*` variables (see `.env.example`):
 
-## Connect with Me
+| Variable | Purpose |
+| --- | --- |
+| `VITE_EMAILJS_SERVICE_ID` | EmailJS service id |
+| `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template id |
+| `VITE_EMAILJS_PUBLIC_KEY` | EmailJS publishable public key |
+| `VITE_CONTACT_EMAIL` | Recipient email address |
+| `VITE_CONTACT_NAME` | Display name on the email |
 
+These are inlined into the client bundle at build time (the EmailJS public key
+is publishable by design). For production, set the same variables in your
+**Vercel** project settings.
+
+## About
+
+Full Stack Engineer building high-performing, scalable web applications across
+Python/Django/FastAPI, React/Next.js/TypeScript, AI integrations, and cloud
+DevOps. Comfortable across the full software lifecycle — architecture, build,
+deploy, and optimization.
+
+## Connect
+
+- [GitHub](https://github.com/itsSauraj)
 - [LinkedIn](https://www.linkedin.com/in/saurabhyadav07/)
-- [Personal Website](https://saurabhyadav.vercel.app/#contact)
-
-## License
-
-Thank you for visiting my GitHub portfolio! I look forward to connecting with you and discussing potential collaborations. If you have any questions or would like to know more about any of my projects, please don't hesitate to reach out. Happy coding!
+- [Live site](https://saurabhyadav.vercel.app/#contact)

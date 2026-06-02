@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 import { styles } from '../styles'
-import { services } from '../constants'
+import { services, aboutText } from '../constants'
 import { fadeIn, textVariant } from '../utils/motion'
 import { ServiceCard } from "../components"
 import { SectionWrapper } from '../hoc'
@@ -9,19 +9,19 @@ import { SectionWrapper } from '../hoc'
 const About = () => {
     return (
         <>
-            <motion.div>
+            <motion.div variants={textVariant()}>
                 <p className={styles.sectionSubText}>Introduction</p>
-                <h2 className={styles.sectionHeadText}>Overview</h2>
+                <h2 className={styles.sectionHeadText}>Who I Am</h2>
             </motion.div>
 
             <motion.p
-                variants={fadeIn("","",0.1,1)}
-                className='mt4 text-secondary text=[17px] max-w-3xl leading-[30px]'
+                variants={fadeIn("", "", 0.1, 1)}
+                className='mt-4 max-w-3xl border-l-2 border-accent-lavender/60 pl-5 font-body text-[17px] leading-[30px] text-secondary'
             >
-                Hello I'm Professional front-end Web Developer. I have mastered technologies like HTML*, CSS*, BOOTSTRAP, REACT, PHP, MySql. I also have my hands on technologies like JAVASCRIPT, PHP, TAILWINDCSS, PYTHON, JAVA, C, BASH.Turning your dream website into reality is my job. I'm a quick learner of any new technology so, with my this skill I want to create efficient, scalable and user-friendly solutions that solve real-world problems. Let's work together to bring your ideas to life.
+                {aboutText}
             </motion.p>
 
-            <div className='mt-20 flex flex-wrap gap-10'>
+            <div className='mt-16 flex flex-wrap gap-6'>
                 {services.map((service, index) => (
                     <ServiceCard key={service.title} index={index} {...service} />
                 ))}
@@ -29,4 +29,5 @@ const About = () => {
         </>
     )
 }
+
 export default SectionWrapper(About, "about")
