@@ -14,6 +14,7 @@ import GrainOverlay from './GrainOverlay';
 import IntroReveal from './IntroReveal';
 import ScrollProgress from './ScrollProgress';
 import Marquee from './Marquee';
+import SpotlightGrid from './SpotlightGrid';
 
 export {
     Hero,
@@ -34,5 +35,6 @@ export {
     GrainOverlay,
     IntroReveal,
     ScrollProgress,
-    Marquee
+    Marquee,
+    SpotlightGrid
 }
