@@ -3,53 +3,64 @@ import { SectionWrapper } from "../hoc"
 import { styles } from "../styles"
 import { fadeIn, textVariant } from "../utils/motion"
 import { testimonials } from "../constants"
+import { Icon } from "../utils/icons"
 
-const FeedbackCard = ({ index, testimonial, name, designation, company, image }) => (
+const FeedbackCard = ({ index, testimonial, name, designation, company, image, linkedIn }) => (
     <motion.div
-        variants={fadeIn("", "spring", index * 0.4, 0.75)}
+        variants={fadeIn("up", "spring", index * 0.25, 0.6)}
         data-cursor
-        className="panel z-10 w-full bg-space-800/60 p-8 xs:w-[500px]"
+        className="panel flex h-full flex-col p-8"
     >
-        <p className="font-display text-[56px] font-black leading-none text-accent-lavender">"</p>
+        <p className="font-display text-[64px] leading-[0.5] text-accent-lavender/70">&ldquo;</p>
 
-        <div className="mt-1">
-            <p className="font-body text-[18px] leading-relaxed tracking-wide text-white">
-                {testimonial}
-            </p>
-            <div className="mt-7 flex items-center justify-between gap-2 border-t border-white/10 pt-5">
-                <div className="flex flex-1 flex-col">
-                    <p className="font-mono text-[15px] font-bold text-white">
-                        <span className="text-accent-lavender">@</span> {name}
-                    </p>
-                    <p className="mt-1 font-mono text-[12px] uppercase tracking-wider text-secondary">
-                        {designation} · {company}
-                    </p>
-                </div>
-                <img
-                    src={image}
-                    alt={`feedback-by-${name}`}
-                    className="h-12 w-12 rounded-full border border-accent-lavender/50 object-cover"
-                />
+        <p className="mt-4 flex-1 font-body text-[15px] leading-relaxed text-secondary">
+            {testimonial}
+        </p>
+
+        <div className="mt-7 flex items-center gap-4 border-t border-white/10 pt-5">
+            <img
+                src={image}
+                alt={name}
+                className="h-12 w-12 shrink-0 rounded-full border border-accent-lavender/40 object-cover"
+            />
+            <div className="min-w-0 flex-1">
+                <p className="font-display text-[19px] uppercase leading-tight tracking-tight text-white">
+                    {name}
+                </p>
+                <p className="truncate font-mono text-[11px] uppercase tracking-wider text-secondary">
+                    {designation} · {company}
+                </p>
             </div>
+            {linkedIn && (
+                <a
+                    href={linkedIn}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-cursor
+                    title={`${name} on LinkedIn`}
+                    className="shrink-0 text-secondary transition-colors hover:text-accent-lavender"
+                >
+                    <Icon name="linkedin" className="text-xl" />
+                </a>
+            )}
         </div>
     </motion.div>
 )
 
 const Feedbacks = () => {
     return (
-        <div className="bg-space-900/40">
-            <div className={`bg-space-800/40 ${styles.padding} min-h-[300px] border-y border-white/10`}>
-                <motion.div variants={textVariant()}>
-                    <p className={styles.sectionSubText}>What others say</p>
-                    <h2 className={styles.sectionHeadText}>Testimonials</h2>
-                </motion.div>
-            </div>
-            <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
+        <>
+            <motion.div variants={textVariant()}>
+                <p className={styles.sectionSubText}>What others say</p>
+                <h2 className={styles.sectionHeadText}>Testimonials</h2>
+            </motion.div>
+
+            <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {testimonials.map((testimonial, index) => (
                     <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
                 ))}
             </div>
-        </div>
+        </>
     )
 }
 
