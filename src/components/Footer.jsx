@@ -1,4 +1,5 @@
 import { socialLinks } from "../constants";
+import { Icon } from "../utils/icons";
 
 const year = new Date().getFullYear();
 
@@ -24,9 +25,9 @@ const Footer = () => {
                             key={index}
                             title={social.name}
                             data-cursor
-                            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-lavender/50 hover:bg-accent-lavender/10 hover:shadow-glow"
+                            className="group flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-secondary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-lavender/50 hover:bg-accent-lavender/10 hover:text-accent-lavender hover:shadow-glow"
                         >
-                            <img src={social.icon} alt={social.name} className="h-5 w-5 opacity-80 invert" />
+                            <Icon name={social.iconKey} className="text-[18px]" />
                         </a>
                     ))}
                 </div>
@@ -34,7 +35,7 @@ const Footer = () => {
 
             <div className="border-t-2 border-white/20 py-4">
                 <p className="text-center font-mono text-[12px] uppercase tracking-widest text-secondary">
-                    © {year} Saurabh Yadav — Built with React + Vite
+                    © {year} Saurabh Yadav — All rights reserved.
                 </p>
             </div>
         </footer>

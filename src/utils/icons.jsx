@@ -11,11 +11,13 @@ import {
     SiSwagger, SiShopify, SiMeta, SiQuickbooks, SiGoogleads, SiPaytm, SiDocker,
     SiKubernetes, SiGit, SiGithub, SiGooglecloud, SiPostman, SiRailway,
     SiPycharm, SiWebstorm, SiDatadog, SiVercel, SiLinux, SiChartdotjs,
+    SiX, SiWhatsapp, SiHackerrank,
 } from "react-icons/si"
 import {
     TbApi, TbDatabase, TbRobot, TbCloudRain, TbChartHistogram, TbBrandAws,
-    TbBrandVscode,
+    TbBrandVscode, TbMail, TbMessageDots,
 } from "react-icons/tb"
+import { FaLinkedin } from "react-icons/fa6"
 
 const ICON_MAP = {
     // Languages & frameworks
@@ -82,6 +84,13 @@ const ICON_MAP = {
     datadog: SiDatadog,
     vercel: SiVercel,
     linux: SiLinux,
+    // Social / contact (github key already defined above)
+    x: SiX,
+    linkedin: FaLinkedin,
+    hackerrank: SiHackerrank,
+    whatsapp: SiWhatsapp,
+    email: TbMail,
+    feedback: TbMessageDots,
 }
 
 // Renders the icon for a key. Falls back to a small bullet so a missing key

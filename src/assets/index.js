@@ -29,18 +29,11 @@ import yogyaCapital from "./company/yogyaCapital.png";
 
 import anonymous from "./testimonials/person.svg"
 import anubhav from "./testimonials/anubhav.jpeg"
+import chirag_jain from "./testimonials/chirag_jain.png"
 
 import windows from "./projects/windows.png"
 import youtube from "./projects/youtube.png"
 import portfolio from "./projects/portfolio.png"
-
-import gihubIcon from './socials/github.svg'
-import linkedinIcon from './socials/linkedin.svg'
-import instagramIcon from './socials/instagram.svg'
-import hackerRankIcon from './socials/hackerrank.svg'
-import whatsapp from './socials/whatsapp.svg'
-import email from './socials/email.svg'
-import feedback from './socials/feedback.svg'
 
 export {
     logo,
@@ -74,16 +67,9 @@ export {
 
     anonymous,
     anubhav,
+    chirag_jain,
 
     windows,
     youtube,
     portfolio,
-
-    gihubIcon,
-    linkedinIcon,
-    instagramIcon,
-    hackerRankIcon,
-    whatsapp,
-    email,
-    feedback,
 };
