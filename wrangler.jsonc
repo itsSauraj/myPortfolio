@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "portfolio",
+  "name": "my-old-portfolio",
   "compatibility_date": "2026-06-01",
   "assets": {
     "directory": "./dist",
