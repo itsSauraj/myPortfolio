@@ -1,8 +1,22 @@
 import { useEffect } from "react"
 import { BrowserRouter } from "react-router-dom"
 
-import { About, Contact, Experience, Feedbacks, 
-    Hero, Navbar, Tech, Works, StarsCanvas, Footer } from './components'
+import {
+    About, Contact, Experience, Feedbacks,
+    Hero, Navbar, Tech, Works, StarsCanvas, Footer,
+    CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, Marquee
+} from './components'
+
+const MARQUEE_ITEMS = [
+    "Full Stack Engineer",
+    "Backend & APIs",
+    "AI Integrations",
+    "Cloud / DevOps",
+    "Python · Django · FastAPI",
+    "React · Next.js · TypeScript",
+    "Docker · Kubernetes · AWS",
+    "Available for work",
+]
 
 const App = () => {
 
@@ -18,21 +32,38 @@ const App = () => {
 
     return (
         <BrowserRouter>
-            <div className="relative z-0 bg-primary">
-                <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
-                    <Navbar />
-                    <Hero />
+            <IntroReveal />
+            <GrainOverlay />
+            <CustomCursor />
+            <ScrollProgress />
+
+            <div className="relative z-0">
+                {/* Ambient space background — sits in the viewport behind content */}
+                <div className="pointer-events-none fixed inset-0 z-0 bg-space-glow" />
+                <div className="pointer-events-none fixed inset-0 z-0 bg-space-grid bg-grid-40 opacity-50" />
+
+                <div className="relative z-10">
+                    <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+                        <Navbar />
+                        <Hero />
+                    </div>
+
+                    <Marquee items={MARQUEE_ITEMS} />
+
+                    <About />
+                    <Experience />
+                    <Tech />
+
+                    <Marquee items={MARQUEE_ITEMS} reverse className="text-accent-sky" />
+
+                    <Works />
+                    <Feedbacks />
+                    <div className="relative z-0">
+                        <Contact />
+                        <StarsCanvas />
+                    </div>
+                    <Footer />
                 </div>
-                <About />
-                <Experience />
-                <Tech />
-                <Works />
-                <Feedbacks />
-                <div className="relative z-0">
-                    <Contact />
-                    <StarsCanvas />
-                </div>
-                <Footer />
             </div>
         </BrowserRouter>
     )

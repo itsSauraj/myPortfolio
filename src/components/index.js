@@ -9,6 +9,11 @@ import Works from './Works';
 import Feedbacks from './Feedbacks';
 import Contact from './Contact';
 import Footer from './Footer'
+import CustomCursor from './CustomCursor';
+import GrainOverlay from './GrainOverlay';
+import IntroReveal from './IntroReveal';
+import ScrollProgress from './ScrollProgress';
+import Marquee from './Marquee';
 
 export {
     Hero,
@@ -24,5 +29,10 @@ export {
     BallCanvas,
     ComputersCanvas,
     StarsCanvas,
-    Footer
+    Footer,
+    CustomCursor,
+    GrainOverlay,
+    IntroReveal,
+    ScrollProgress,
+    Marquee
 }

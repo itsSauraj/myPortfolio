@@ -1,32 +1,10 @@
 import {
-    mobile,
-    backend,
-    creator,
-    web,
-    javascript,
-    html,
-    css,
-    reactjs,
-    tailwind,
-    git,
-    github_w,
-    github_b,
-
-    none,
     theBackOffice,
     yogyaCapital,
 
     windows,
     youtube,
     portfolio,
-
-    python,
-    linux,
-    mysql,
-    C,
-    java,
-    bootstrap,
-    postgresql,
 
     gihubIcon,
     linkedinIcon,
@@ -37,7 +15,6 @@ import {
     email,
     feedback,
 
-    anonymous,
     anubhav,
 } from "../assets";
 
@@ -56,189 +33,283 @@ export const navLinks = [
     },
 ];
 
+// Hero identity
+const heroName = "Saurabh";
+const heroRoles = [
+    "Full Stack Engineer",
+    "Backend & APIs",
+    "AI Integrations",
+    "Cloud / DevOps",
+];
+
+const aboutText =
+    "I'm a Full Stack Engineer who builds high-performing, scalable web applications — comfortable across the entire software lifecycle, from system architecture and design through development, deployment, and optimization. I work daily with Python, Node.js, React, TypeScript, and SCSS, integrating external APIs into reliable products, and I lean on Docker and CI/CD pipelines for dependable, automated deployments. I actively use AI-assisted workflows (Claude, Codex) and modern developer tooling to ship faster. Currently completing a B.Tech in Computer Science & Engineering, I love applying engineering fundamentals to real-world problems while continuously learning.";
+
 const services = [
     {
-        title: "Web Developer",
-        icon: web,
+        title: "Backend & APIs",
+        iconKey: "fastapi",
+        blurb: "Scalable services and REST APIs with Django, FastAPI, and Celery background workers.",
     },
     {
-        title: "React Developer",
-        icon: mobile,
+        title: "Frontend Engineering",
+        iconKey: "react",
+        blurb: "Responsive, accessible interfaces with React, Next.js, and TypeScript.",
     },
     {
-        title: "Backend Developer",
-        icon: backend,
+        title: "AI Integrations",
+        iconKey: "anthropic",
+        blurb: "AI-driven features with Anthropic, OpenAI, and Gemini via LangChain and OpenRouter.",
     },
     {
-        title: "Full Stack Developer",
-        icon: creator,
+        title: "Cloud & DevOps",
+        iconKey: "docker",
+        blurb: "Containerized deploys with Docker, Kubernetes, AWS/GCP, and CI/CD on GitHub Actions.",
     },
 ];
 
-const technologies = [
+// Skills grouped by category (icons resolved via src/utils/icons.jsx)
+const skillGroups = [
     {
-        name: "HTML 5",
-        icon: html,
+        title: "Languages & Frameworks",
+        skills: [
+            { name: "Python", iconKey: "python" },
+            { name: "Django", iconKey: "django" },
+            { name: "FastAPI", iconKey: "fastapi" },
+            { name: "Celery", iconKey: "celery" },
+            { name: "REST API", iconKey: "restapi" },
+            { name: "PyTest", iconKey: "pytest" },
+            { name: "Jest", iconKey: "jest" },
+            { name: "React", iconKey: "react" },
+            { name: "Next.js", iconKey: "nextjs" },
+            { name: "TypeScript", iconKey: "typescript" },
+            { name: "JavaScript", iconKey: "javascript" },
+            { name: "Node.js", iconKey: "nodejs" },
+        ],
     },
     {
-        name: "CSS 3",
-        icon: css,
+        title: "Databases",
+        skills: [
+            { name: "PostgreSQL", iconKey: "postgresql" },
+            { name: "SQL", iconKey: "sql" },
+            { name: "SQLite", iconKey: "sqlite" },
+            { name: "MongoDB", iconKey: "mongodb" },
+            { name: "Redis", iconKey: "redis" },
+        ],
     },
     {
-        name: "JavaScript",
-        icon: javascript,
+        title: "AI & Data",
+        skills: [
+            { name: "NumPy", iconKey: "numpy" },
+            { name: "Pandas", iconKey: "pandas" },
+            { name: "Matplotlib", iconKey: "matplotlib" },
+            { name: "OpenCV", iconKey: "opencv" },
+            { name: "HuggingFace", iconKey: "huggingface" },
+            { name: "Anthropic", iconKey: "anthropic" },
+            { name: "OpenAI", iconKey: "openai" },
+            { name: "Gemini", iconKey: "gemini" },
+            { name: "LangChain", iconKey: "langchain" },
+        ],
     },
     {
-        name: "C",
-        icon: C,
+        title: "Integrations",
+        skills: [
+            { name: "Stripe", iconKey: "stripe" },
+            { name: "Razorpay", iconKey: "razorpay" },
+            { name: "Google Maps", iconKey: "googlemaps" },
+            { name: "Swagger", iconKey: "swagger" },
+            { name: "OpenRouter", iconKey: "openrouter" },
+            { name: "Shopify", iconKey: "shopify" },
+            { name: "Meta", iconKey: "meta" },
+            { name: "QuickBooks", iconKey: "quickbooks" },
+            { name: "Google Ads", iconKey: "googleads" },
+            { name: "Paytm", iconKey: "paytm" },
+        ],
     },
     {
-        name: "React JS",
-        icon: reactjs,
-    },
-    {
-        name: "Linux",
-        icon: linux,
-    },
-    {
-        name: "Tailwind CSS",
-        icon: tailwind,
-    },
-    {
-        name: "MySql",
-        icon: mysql,
-    },
-    {
-        name: "Python",
-        icon: python,
-    },
-    {
-        name: "Git",
-        icon: git,
-    },
-    {
-        name: 'Github',
-        icon: github_b,
-    },
-    {
-        name: 'Java',
-        icon: java,
-    },
-    {
-        name: 'Bootstrap',
-        icon: bootstrap,
-    },
-    {
-        name: 'PostgreSQL',
-        icon: postgresql,
+        title: "Tools & DevOps",
+        skills: [
+            { name: "Docker", iconKey: "docker" },
+            { name: "Kubernetes", iconKey: "kubernetes" },
+            { name: "Git", iconKey: "git" },
+            { name: "GitHub", iconKey: "github" },
+            { name: "AWS", iconKey: "aws" },
+            { name: "GCP", iconKey: "gcp" },
+            { name: "Postman", iconKey: "postman" },
+            { name: "Railway", iconKey: "railway" },
+            { name: "VS Code", iconKey: "vscode" },
+            { name: "Datadog", iconKey: "datadog" },
+        ],
     },
 ];
 
 const experiences = [
     {
-        title: "Full Stack Developer",
-        company_name: "theBackOffice",
-        icon: theBackOffice,
-        iconBg: "#FFFFFF",
-        date: "24-July-2023 to 1-Nov-2023",
+        title: "Full Stack Software Developer",
+        company_name: "La Net Team Software Solutions Pvt. Ltd.",
+        location: "Surat, India",
+        icon: null,
+        monogram: "LN",
+        iconBg: "#C9B8FF",
+        date: "Sep 2024 – Present",
         points: [
-            "I worked on the project of the company as a full stack developer.",
-            "Worked on the technologies like React, Django, PostgreSQL, etc.",
+            "Built integrations with Shopify, QuickBooks, and Google Ads using background workers to sync user data.",
+            "Led a team building microservices deployed via Docker on Railway with CI/CD, testing, and linting.",
+            "Building AI-driven systems with Django and FastAPI, integrating Anthropic, ChatGPT, and Gemini.",
+            "Operated on AWS and Kubernetes with Datadog monitoring and security checks via GitHub Actions.",
         ],
     },
     {
-        title: "Full Stack Developer and Project Head",
+        title: "Full Stack Developer (Intern) · Team Lead",
         company_name: "Yogya Capital",
+        location: "Remote",
         icon: yogyaCapital,
         iconBg: "#FFFFFF",
-        date: "08-Dec-2023 (on going)",
+        date: "Dec 2023 – Mar 2024",
         points: [
-            "I am working on the project of the company as a full stack developer and project head.",
-            "Working on the technologies like React, Django, PostgreSQL, Bootstrap5, etc.",
-            "I am also managing the team of 4 people.",
-            "I am also responsible for the research and deployment of the project.",
+            "Led project design, architecture, and deployment as Team Lead and Backend Developer.",
+            "Coordinated the team and managed the end-to-end development process.",
+            "Built backend systems for finance and NSE-related workflows.",
+        ],
+    },
+    {
+        title: "Full Stack Developer (Intern)",
+        company_name: "theBackOffice",
+        location: "Remote",
+        icon: theBackOffice,
+        iconBg: "#FFFFFF",
+        date: "Jul 2023 – Nov 2023",
+        points: [
+            "Developed backend APIs, then contributed to the web platform's frontend.",
+            "Worked across backend and frontend to ship features and improve functionality.",
+            "Key project: a Multi-Tenant CA Management system.",
         ],
     },
 ];
 
+// Tag color helpers (gradient text classes defined in index.css)
+const C = {
+    blue: "blue-text-gradient",
+    green: "green-text-gradient",
+    pink: "pink-text-gradient",
+    orange: "orange-text-gradient",
+};
+
 const projects = [
+    // ---- Enterprise / professional work (no public links) ----
+    {
+        name: "BCG-Internal",
+        private: true,
+        description:
+            "Internal enterprise tool integrating Anthropic, ChatGPT, and Gemini using Django and FastAPI to perform automated actions, AI-driven generation, and web-search workflows.",
+        tags: [
+            { name: "FastAPI", color: C.green },
+            { name: "Celery", color: C.blue },
+            { name: "Next.js", color: C.pink },
+            { name: "PostgreSQL", color: C.blue },
+            { name: "Docker", color: C.orange },
+            { name: "Datadog", color: C.green },
+        ],
+        accent: "#A9B4FF",
+    },
+    {
+        name: "DevRob",
+        private: true,
+        description:
+            "Robotics simulation platform built on a microservices architecture with AI integrations to simulate robotic workflows and automate actions through intelligent systems.",
+        tags: [
+            { name: "Node.js", color: C.green },
+            { name: "FastAPI", color: C.pink },
+            { name: "Next.js", color: C.blue },
+            { name: "Tailwind", color: C.green },
+            { name: "Railway", color: C.orange },
+            { name: "Docker", color: C.blue },
+        ],
+        accent: "#9FD4FF",
+    },
+    {
+        name: "MetricsNavigator",
+        private: true,
+        description:
+            "Data-integration platform connecting Shopify, QuickBooks, and Google Ads to sync business data through background workers, enabling centralized analytics and reporting.",
+        tags: [
+            { name: "Django", color: C.green },
+            { name: "React", color: C.blue },
+            { name: "TypeScript", color: C.pink },
+            { name: "Chart.js", color: C.orange },
+            { name: "OpenAI", color: C.green },
+            { name: "LangChain", color: C.blue },
+        ],
+        accent: "#F3C0E0",
+    },
+    {
+        name: "Finance & NSE Platform",
+        private: true,
+        description:
+            "Backend system for financial data workflows and NSE-related processes — system design, architecture, and deployment, coordinating development as team lead.",
+        tags: [
+            { name: "Django", color: C.green },
+            { name: "Celery", color: C.blue },
+            { name: "Redis", color: C.pink },
+            { name: "PostgreSQL", color: C.blue },
+            { name: "Stripe", color: C.orange },
+        ],
+        accent: "#A9E8D0",
+    },
+    {
+        name: "Multi-Tenant CA System",
+        private: true,
+        description:
+            "Multi-tenant platform for Chartered Accountants to manage multiple clients, financial records, and workflows with backend APIs and a supporting web interface.",
+        tags: [
+            { name: "Django", color: C.green },
+            { name: "Celery", color: C.blue },
+            { name: "Redis", color: C.pink },
+            { name: "PostgreSQL", color: C.blue },
+            { name: "AWS (boto)", color: C.orange },
+        ],
+        accent: "#C9B8FF",
+    },
+
+    // ---- Public / personal projects (with live links) ----
     {
         name: "Windows 11",
+        private: false,
         description:
-            "This is a simple replica of Windows 11 using only HTML, CSS and JavaScript.",
+            "A pixel-faithful replica of the Windows 11 desktop built with vanilla HTML, CSS, and JavaScript.",
         tags: [
-            {
-                name: "HTML5",
-                color: "blue-text-gradient",
-            },
-            {
-                name: "CSS3",
-                color: "green-text-gradient",
-            },
-            {
-                name: "JavaScript",
-                color: "pink-text-gradient",
-            },
+            { name: "HTML5", color: C.blue },
+            { name: "CSS3", color: C.green },
+            { name: "JavaScript", color: C.pink },
         ],
         image: windows,
         project_link: "https://itsSauraj.github.io/Windows11-Clone",
         source_code_link: "https://github.com/itsSauraj/Windows11-Clone.git",
     },
     {
-        name: "Youtube Clone",
+        name: "YouTube Clone",
+        private: false,
         description:
-            "This is project uses API to get the content that must be displayed on the website. This project completly uses JavaScript React library.",
+            "A YouTube clone that consumes a live API to render trending content, built entirely with React.",
         tags: [
-            {
-                name: "HTML5",
-                color: "blue-text-gradient",
-            },
-            {
-                name: "CSS3",
-                color: "green-text-gradient",
-            },
-            {
-                name: "JavaScript",
-                color: "pink-text-gradient",
-            },
-            {
-                name: "React",
-                color: "blue-text-gradient",
-            },
-            {
-                name: "MUI",
-                color: "green-text-gradient",
-            },
+            { name: "React", color: C.blue },
+            { name: "JavaScript", color: C.pink },
+            { name: "MUI", color: C.green },
         ],
         image: youtube,
         project_link: "https://youtube-clone-react-18.netlify.app/",
         source_code_link: "https://github.com/itsSauraj/YoutubeCloneReact.git",
     },
     {
-        name: "My Portfolio",
+        name: "This Portfolio",
+        private: false,
         description:
-            "This is my portfolio website which is made using REACT and React Three Fiber (R3F).😊",
+            "The site you're on — a dark, space-themed developer portfolio built with React, Three.js (R3F), Framer Motion, and Vite.",
         tags: [
-            {
-                name: "HTML5",
-                color: "blue-text-gradient",
-            },
-            {
-                name: "CSS3",
-                color: "green-text-gradient",
-            },
-            {
-                name: "JavaScript",
-                color: "pink-text-gradient",
-            },
-            {
-                name: "React",
-                color: "blue-text-gradient",
-            },
-            {
-                name: "React three filber",
-                color: "green-text-gradient",
-            },
+            { name: "React", color: C.blue },
+            { name: "Three.js", color: C.green },
+            { name: "Framer Motion", color: C.pink },
+            { name: "Vite", color: C.orange },
         ],
         image: portfolio,
         project_link: "https://saurabhyadav.vercel.app",
@@ -249,7 +320,7 @@ const projects = [
 const testimonials = [
     {
         testimonial:
-        "We have no hesitation in recommending Saurabh Yadav for any future roles or positions requiring expertise in Python Development with the Django Framework or Frontend Development with ReactJS. His positive attitude, determination, and technical proficiency makes him a valuable asset to any organisation.",
+            "We have no hesitation in recommending Saurabh Yadav for any future roles or positions requiring expertise in Python Development with the Django Framework or Frontend Development with ReactJS. His positive attitude, determination, and technical proficiency make him a valuable asset to any organisation.",
         name: "Anubhav Shrivastava",
         designation: "CTO",
         company: "theBackOffice",
@@ -266,7 +337,7 @@ const models = {
     }
 }
 
-const socialLinks =[
+const socialLinks = [
     {
         name: 'github',
         link: 'https://github.com/itsSauraj',
@@ -304,5 +375,15 @@ const socialLinks =[
     },
 ]
 
-
-export { services, technologies, experiences, projects, testimonials, models, socialLinks };
+export {
+    heroName,
+    heroRoles,
+    aboutText,
+    services,
+    skillGroups,
+    experiences,
+    projects,
+    testimonials,
+    models,
+    socialLinks,
+};
