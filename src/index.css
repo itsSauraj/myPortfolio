@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
     scroll-behavior: smooth;
     color-scheme: dark;
 }
@@ -18,6 +17,9 @@ html {
 }
 
 body {
+    /* Default font lives on body so font-display/font-mono cascade into
+       nested elements (a universal `*` font-family would override them). */
+    font-family: "Poppins", sans-serif;
     background-color: #02030a;
 }
 
@@ -112,29 +114,50 @@ body.spotlight-on .spotlight-layer {
     background: radial-gradient(circle 300px at var(--mx, 50%) var(--my, 50%), rgba(201, 184, 255, 0.10), transparent 70%);
 }
 
-/* Hero animated lines — pulses travel along faint grid-matching lines */
-.hero-lines {
-    filter: drop-shadow(0 0 3px rgba(201, 184, 255, 0.35));
+/* Hero unified grid — bright copy (lines + icons) revealed by a cursor-tracked
+   radial mask. --lx/--ly are element-local coordinates set in HeroGrid.jsx. */
+.hero-spot {
+    -webkit-mask-image: radial-gradient(circle 220px at var(--lx, -999px) var(--ly, -999px), #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 80%);
+    mask-image: radial-gradient(circle 220px at var(--lx, -999px) var(--ly, -999px), #000 0%, rgba(0, 0, 0, 0.35) 55%, transparent 80%);
+    filter: drop-shadow(0 0 8px rgba(201, 184, 255, 0.45));
 }
 
-@keyframes hero-flow-h {
-    to {
-        stroke-dashoffset: -1440;
-    }
+/* Travelling light pulses along the grid lines */
+.hero-pulse-v,
+.hero-pulse-h {
+    position: absolute;
+    opacity: 0.55;
+    pointer-events: none;
 }
 
-@keyframes hero-flow-v {
-    to {
-        stroke-dashoffset: -900;
-    }
+.hero-pulse-v {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #c9b8ff, transparent);
+    background-size: 100% 150px;
+    background-repeat: no-repeat;
+    animation: hero-pulse-v 7s linear infinite;
 }
 
-.hero-flow-h {
-    animation: hero-flow-h linear infinite;
+@keyframes hero-pulse-v {
+    0% { background-position: 0 -170px; }
+    100% { background-position: 0 calc(100% + 170px); }
 }
 
-.hero-flow-v {
-    animation: hero-flow-v linear infinite;
+.hero-pulse-h {
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #9fd4ff, transparent);
+    background-size: 220px 100%;
+    background-repeat: no-repeat;
+    animation: hero-pulse-h 9s linear infinite;
+}
+
+@keyframes hero-pulse-h {
+    0% { background-position: -240px 0; }
+    100% { background-position: calc(100% + 240px) 0; }
 }
 
 /* Custom cursor primitives */

@@ -27,7 +27,7 @@ module.exports = {
                 },
             },
             fontFamily: {
-                display: ['"Space Grotesk"', "sans-serif"],
+                display: ['"Bebas Neue"', '"Space Grotesk"', "sans-serif"],
                 mono: ['"Space Mono"', "ui-monospace", "monospace"],
                 body: ["Poppins", "sans-serif"],
             },
