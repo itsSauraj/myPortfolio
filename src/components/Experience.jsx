@@ -11,12 +11,13 @@ import { textVariant } from "../utils/motion"
 const ExperienceCard = ({ experience }) => (
     <VerticalTimelineElement
         contentStyle={{
-            background: 'rgba(14, 18, 40, 0.7)',
+            background: 'rgba(255, 255, 255, 0.04)',
             color: '#fff',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: 16,
             boxShadow: '0 18px 50px -20px rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(6px)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
         }}
         contentArrowStyle={{
             borderRight: '7px solid rgba(255, 255, 255, 0.1)',

@@ -10,8 +10,8 @@ const Computers = ({ isMobile }) => {
     const computer = useGLTF(models.desktop_pc.url)
     return (
         <mesh>
-            <hemisphereLight intensity={0.15} groundColor='black' />
-            <pointLight intensity={1} />
+            <hemisphereLight intensity={0.2} groundColor='black' />
+            <pointLight intensity={0.4} />
             <spotLight
                 position={[-20, 50, 10]}
                 angle={0.12}
@@ -20,6 +20,12 @@ const Computers = ({ isMobile }) => {
                 castShadow
                 shadow-mapSize={1024}
             />
+
+            {/* Accent rim lights in the site's pastel palette */}
+            <pointLight position={[-6, 3, 4]} intensity={1.5} color='#C9B8FF' decay={0} />
+            <pointLight position={[6, 2, -3]} intensity={1.5} color='#9FD4FF' decay={0} />
+            <pointLight position={[0, 5, -5]} intensity={0.9} color='#A9E8D0' decay={0} />
+            <pointLight position={[3, -1, 5]} intensity={0.8} color='#F3C0E0' decay={0} />
             <primitive
                 object={computer.scene}
                 scale={ isMobile ? 0.7 : 0.75}

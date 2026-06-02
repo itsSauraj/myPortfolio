@@ -42,7 +42,7 @@ const App = () => {
                 <SpotlightGrid />
 
                 <div className="relative z-10">
-                    <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+                    <div className="relative">
                         <Navbar />
                         <Hero />
                     </div>

@@ -112,6 +112,31 @@ body.spotlight-on .spotlight-layer {
     background: radial-gradient(circle 300px at var(--mx, 50%) var(--my, 50%), rgba(201, 184, 255, 0.10), transparent 70%);
 }
 
+/* Hero animated lines — pulses travel along faint grid-matching lines */
+.hero-lines {
+    filter: drop-shadow(0 0 3px rgba(201, 184, 255, 0.35));
+}
+
+@keyframes hero-flow-h {
+    to {
+        stroke-dashoffset: -1440;
+    }
+}
+
+@keyframes hero-flow-v {
+    to {
+        stroke-dashoffset: -900;
+    }
+}
+
+.hero-flow-h {
+    animation: hero-flow-h linear infinite;
+}
+
+.hero-flow-v {
+    animation: hero-flow-v linear infinite;
+}
+
 /* Custom cursor primitives */
 .cursor-dot,
 .cursor-ring {

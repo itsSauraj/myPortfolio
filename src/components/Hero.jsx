@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { styles } from '../styles'
 import { ComputersCanvas } from './canvas'
+import HeroLines from './HeroLines'
 import { heroName, heroRoles } from '../constants'
 
 const Hero = () => {
@@ -19,6 +20,8 @@ const Hero = () => {
 
     return (
         <section className="relative mx-auto h-screen w-full">
+            <HeroLines />
+
             <div
                 className={`${styles.paddingX} absolute inset-0 top-[120px] mx-auto flex max-w-7xl flex-row items-start gap-5`}
             >
