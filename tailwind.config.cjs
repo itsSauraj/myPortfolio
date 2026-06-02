@@ -27,9 +27,9 @@ module.exports = {
                 },
             },
             fontFamily: {
-                display: ['"Bebas Neue"', '"Space Grotesk"', "sans-serif"],
-                mono: ['"Space Mono"', "ui-monospace", "monospace"],
-                body: ["Poppins", "sans-serif"],
+                display: ['"Bebas Neue"', "sans-serif"],
+                mono: ['"Roboto Mono"', "ui-monospace", "monospace"],
+                body: ['"Roboto Mono"', "ui-monospace", "monospace"],
             },
             boxShadow: {
                 card: "0px 35px 120px -15px #211e35",

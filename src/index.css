@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +19,7 @@ html {
 body {
     /* Default font lives on body so font-display/font-mono cascade into
        nested elements (a universal `*` font-family would override them). */
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto Mono", ui-monospace, monospace;
     background-color: #02030a;
 }
 
@@ -158,6 +158,16 @@ body.spotlight-on .spotlight-layer {
 @keyframes hero-pulse-h {
     0% { background-position: -240px 0; }
     100% { background-position: calc(100% + 240px) 0; }
+}
+
+/* Glowing vertical timeline line (react-vertical-timeline-component) */
+.vertical-timeline::before {
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(201, 184, 255, 0.9) 10%,
+            rgba(159, 212, 255, 0.9) 90%,
+            transparent) !important;
+    box-shadow: 0 0 16px 1px rgba(201, 184, 255, 0.55);
 }
 
 /* Custom cursor primitives */

@@ -6,16 +6,8 @@ import {
     youtube,
     portfolio,
 
-    gihubIcon,
-    linkedinIcon,
-    instagramIcon,
-    hackerRankIcon,
-
-    whatsapp,
-    email,
-    feedback,
-
     anubhav,
+    chirag_jain,
 } from "../assets";
 
 export const navLinks = [
@@ -43,7 +35,7 @@ const heroRoles = [
 ];
 
 const aboutText =
-    "I'm a Full Stack Engineer who builds high-performing, scalable web applications — comfortable across the entire software lifecycle, from system architecture and design through development, deployment, and optimization. I work daily with Python, Node.js, React, TypeScript, and SCSS, integrating external APIs into reliable products, and I lean on Docker and CI/CD pipelines for dependable, automated deployments. I actively use AI-assisted workflows (Claude, Codex) and modern developer tooling to ship faster. Currently completing a B.Tech in Computer Science & Engineering, I love applying engineering fundamentals to real-world problems while continuously learning.";
+    "I'm a Full Stack Engineer who builds high-performing, scalable web applications — comfortable across the entire software lifecycle, from system architecture and design through development, deployment, and optimization. I work daily with Python, Node.js, React, TypeScript, and SCSS, integrating external APIs into reliable products, and I lean on Docker and CI/CD pipelines for dependable, automated deployments. I actively use AI-assisted workflows (Claude, Codex) and modern developer tooling to ship faster. With a B.Tech in Computer Science & Engineering completed, I now work as a Full Stack Software Engineer at La Net Team Software Solutions in Surat, applying engineering fundamentals to real-world problems while continuously learning.";
 
 const services = [
     {
@@ -322,10 +314,20 @@ const testimonials = [
         testimonial:
             "We have no hesitation in recommending Saurabh Yadav for any future roles or positions requiring expertise in Python Development with the Django Framework or Frontend Development with ReactJS. His positive attitude, determination, and technical proficiency make him a valuable asset to any organisation.",
         name: "Anubhav Shrivastava",
-        designation: "CTO",
-        company: "theBackOffice",
+        designation: "Staff Software Engineer",
+        company: "HevoData",
         image: anubhav,
+        linkedIn: "https://www.linkedin.com/in/anubhavshrivastava1/",
     },
+    {
+        testimonial:
+            "Saurabh is a highly skilled and dedicated software developer who consistently delivers high-quality work. He has a strong understanding of both frontend and backend technologies, and his ability to quickly learn and adapt to new tools and frameworks is impressive. Saurabh's positive attitude, excellent communication skills, and collaborative approach make him a valuable asset to any team. I have no doubt that he will continue to excel in his career and make significant contributions to the field of software development.",
+        name: "Chirag Jain",
+        designation: "Founder of Scoop Investment",
+        company: "Yogya Capital",
+        image: chirag_jain,
+        linkedIn: "https://www.linkedin.com/in/chiragjain1097/",
+    }
 ];
 
 const models = {
@@ -341,37 +343,37 @@ const socialLinks = [
     {
         name: 'github',
         link: 'https://github.com/itsSauraj',
-        icon: gihubIcon,
+        iconKey: 'github',
     },
     {
-        name: 'instagram',
-        link: 'https://www.instagram.com/this.is.saurabh.official',
-        icon: instagramIcon,
+        name: 'x',
+        link: 'https://x.com/itssauraj',
+        iconKey: 'x',
     },
     {
         name: 'linkedin',
         link: 'https://www.linkedin.com/in/saurabhyadav07',
-        icon: linkedinIcon,
+        iconKey: 'linkedin',
     },
     {
         name: 'hackerrank',
         link: 'https://www.hackerrank.com/sy8502630',
-        icon: hackerRankIcon,
+        iconKey: 'hackerrank',
     },
     {
         name: 'email',
-        link: 'mailto:sauraj.contact@gmail.com',
-        icon: email,
+        link: 'mailto:contact@saurabh-yadav.me',
+        iconKey: 'email',
     },
     {
         name: 'whatsapp',
         link: 'https://wa.me/+917486052584',
-        icon: whatsapp,
+        iconKey: 'whatsapp',
     },
     {
         name: 'feedback',
         link: 'https://forms.gle/WcWvaChVMb6A7YvWA',
-        icon: feedback,
+        iconKey: 'feedback',
     },
 ]
 

@@ -16,7 +16,7 @@ const About = () => {
 
             <motion.p
                 variants={fadeIn("", "", 0.1, 1)}
-                className='mt-4 max-w-3xl border-l-2 border-accent-lavender/60 pl-5 font-body text-[17px] leading-[30px] text-secondary'
+                className='mt-4 max-w-3xl border-l-2 border-accent-lavender/60 pl-5 text-justify font-body text-[17px] leading-[30px] text-secondary'
             >
                 {aboutText}
             </motion.p>
