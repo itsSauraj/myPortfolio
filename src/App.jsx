@@ -1,11 +1,12 @@
 import { useEffect } from "react"
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 
 import {
     About, Contact, Experience, Feedbacks,
     Hero, Navbar, Tech, Works, StarsCanvas, Footer,
     CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, Marquee, SpotlightGrid
 } from './components'
+import Projects from './pages/Projects'
 
 const MARQUEE_ITEMS = [
     "Full Stack Engineer",
@@ -18,16 +19,55 @@ const MARQUEE_ITEMS = [
     "Available for work",
 ]
 
-const App = () => {
+const Home = () => (
+    <>
+        <Hero />
+
+        <Marquee items={MARQUEE_ITEMS} />
+
+        <About />
+        <Experience />
+        <Tech />
+
+        <Marquee items={MARQUEE_ITEMS} reverse className="text-accent-sky" />
+
+        <Works />
+        <Feedbacks />
+        <div className="relative z-0">
+            <Contact />
+            <StarsCanvas />
+        </div>
+    </>
+)
+
+// Smooth-scrolls to the hash target after route/hash changes (e.g. clicking a
+// section link from the /projects page), and resets to top on plain route changes.
+const ScrollToHash = () => {
+    const { pathname, hash } = useLocation()
 
     useEffect(() => {
-        const handleContextmenu = e => {
-            e.preventDefault()
+        if (hash) {
+            const id = setTimeout(() => {
+                const el = document.querySelector(hash)
+                if (el) {
+                    if (window.__lenis) window.__lenis.scrollTo(el, { offset: -70 })
+                    else el.scrollIntoView()
+                }
+            }, 140)
+            return () => clearTimeout(id)
         }
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true })
+        else window.scrollTo(0, 0)
+    }, [pathname, hash])
+
+    return null
+}
+
+const App = () => {
+    useEffect(() => {
+        const handleContextmenu = (e) => e.preventDefault()
         document.addEventListener('contextmenu', handleContextmenu)
-        return function cleanup() {
-            document.removeEventListener('contextmenu', handleContextmenu)
-        }
+        return () => document.removeEventListener('contextmenu', handleContextmenu)
     }, [])
 
     return (
@@ -36,31 +76,18 @@ const App = () => {
             <GrainOverlay />
             <CustomCursor />
             <ScrollProgress />
+            <ScrollToHash />
 
             <div className="relative z-0">
                 {/* Ambient space background + cursor spotlight on the grid */}
                 <SpotlightGrid />
 
                 <div className="relative z-10">
-                    <div className="relative">
-                        <Navbar />
-                        <Hero />
-                    </div>
-
-                    <Marquee items={MARQUEE_ITEMS} />
-
-                    <About />
-                    <Experience />
-                    <Tech />
-
-                    <Marquee items={MARQUEE_ITEMS} reverse className="text-accent-sky" />
-
-                    <Works />
-                    <Feedbacks />
-                    <div className="relative z-0">
-                        <Contact />
-                        <StarsCanvas />
-                    </div>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/projects" element={<Projects />} />
+                    </Routes>
                     <Footer />
                 </div>
             </div>

@@ -40,6 +40,11 @@ const Tech = () => {
                                     <span className='font-mono text-[13px] text-white'>
                                         {skill.name}
                                     </span>
+                                    {skill.badge && (
+                                        <span className='rounded-full border border-accent-mint/40 bg-accent-mint/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-accent-mint'>
+                                            {skill.badge}
+                                        </span>
+                                    )}
                                 </div>
                             ))}
                         </div>

@@ -7,7 +7,7 @@ import { SectionWrapper } from "../hoc"
 import { fadeIn } from "../utils/motion"
 
 // Config is read from environment (VITE_*). The EmailJS public key is
-// publishable by design; see .env.example. Set the same vars in Vercel.
+// publishable by design; see .env.example. Set the same vars in Cloudflare.
 const EMAILJS = {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
     templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,

@@ -11,13 +11,15 @@ import {
     SiSwagger, SiShopify, SiMeta, SiQuickbooks, SiGoogleads, SiPaytm, SiDocker,
     SiKubernetes, SiGit, SiGithub, SiGooglecloud, SiPostman, SiRailway,
     SiPycharm, SiWebstorm, SiDatadog, SiVercel, SiLinux, SiChartdotjs,
-    SiX, SiWhatsapp, SiHackerrank,
+    SiX, SiWhatsapp, SiHackerrank, SiMacos, SiGooglechrome, SiGithubactions,
+    SiJira, SiNotion, SiCloudflare, SiHostinger, SiSlack, SiDiagramsdotnet,
+    SiExcalidraw,
 } from "react-icons/si"
 import {
     TbApi, TbDatabase, TbRobot, TbCloudRain, TbChartHistogram, TbBrandAws,
-    TbBrandVscode, TbMail, TbMessageDots,
+    TbBrandVscode, TbBrandTeams, TbMail, TbMessageDots,
 } from "react-icons/tb"
-import { FaLinkedin } from "react-icons/fa6"
+import { FaLinkedin, FaWindows } from "react-icons/fa6"
 
 const ICON_MAP = {
     // Languages & frameworks
@@ -83,7 +85,21 @@ const ICON_MAP = {
     webstorm: SiWebstorm,
     datadog: SiDatadog,
     vercel: SiVercel,
+    githubactions: SiGithubactions,
+    cloudflare: SiCloudflare,
+    hostinger: SiHostinger,
+    // Operating systems
     linux: SiLinux,
+    windows: FaWindows,
+    macos: SiMacos,
+    // Software & workflow
+    chrome: SiGooglechrome,
+    jira: SiJira,
+    notion: SiNotion,
+    slack: SiSlack,
+    teams: TbBrandTeams,
+    drawio: SiDiagramsdotnet,
+    excalidraw: SiExcalidraw,
     // Social / contact (github key already defined above)
     x: SiX,
     linkedin: FaLinkedin,

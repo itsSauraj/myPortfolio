@@ -11,7 +11,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "deploy": "vite build && wrangler deploy"
     },
     "engines": {
         "node": "24.x"

@@ -24,8 +24,8 @@ export const navLinks = [
         title: "Skills",
     },
     {
-        id: "work",
-        title: "Work",
+        route: "/projects",
+        title: "Projects",
     },
     {
         id: "contact",
@@ -133,12 +133,36 @@ const skillGroups = [
             { name: "Kubernetes", iconKey: "kubernetes" },
             { name: "Git", iconKey: "git" },
             { name: "GitHub", iconKey: "github" },
+            { name: "GitHub Actions", iconKey: "githubactions" },
             { name: "AWS", iconKey: "aws" },
             { name: "GCP", iconKey: "gcp" },
-            { name: "Postman", iconKey: "postman" },
+            { name: "Cloudflare", iconKey: "cloudflare" },
+            { name: "Hostinger", iconKey: "hostinger" },
             { name: "Railway", iconKey: "railway" },
-            { name: "VS Code", iconKey: "vscode" },
             { name: "Datadog", iconKey: "datadog" },
+        ],
+    },
+    {
+        title: "Operating Systems",
+        skills: [
+            { name: "Linux", iconKey: "linux", badge: "Preferred" },
+            { name: "macOS", iconKey: "macos" },
+            { name: "Windows", iconKey: "windows" },
+        ],
+    },
+    {
+        title: "Software & Workflow",
+        skills: [
+            { name: "VS Code", iconKey: "vscode" },
+            { name: "PyCharm", iconKey: "pycharm" },
+            { name: "Chrome", iconKey: "chrome" },
+            { name: "Postman", iconKey: "postman" },
+            { name: "Jira", iconKey: "jira" },
+            { name: "Notion", iconKey: "notion" },
+            { name: "Slack", iconKey: "slack" },
+            { name: "Teams", iconKey: "teams" },
+            { name: "draw.io", iconKey: "drawio" },
+            { name: "Excalidraw", iconKey: "excalidraw" },
         ],
     },
 ];
@@ -199,6 +223,7 @@ const projects = [
     // ---- Enterprise / professional work (no public links) ----
     {
         name: "BCG-Internal",
+        category: "Enterprise",
         private: true,
         description:
             "Internal enterprise tool integrating Anthropic, ChatGPT, and Gemini using Django and FastAPI to perform automated actions, AI-driven generation, and web-search workflows.",
@@ -214,6 +239,7 @@ const projects = [
     },
     {
         name: "DevRob",
+        category: "Enterprise",
         private: true,
         description:
             "Robotics simulation platform built on a microservices architecture with AI integrations to simulate robotic workflows and automate actions through intelligent systems.",
@@ -229,6 +255,7 @@ const projects = [
     },
     {
         name: "MetricsNavigator",
+        category: "Enterprise",
         private: true,
         description:
             "Data-integration platform connecting Shopify, QuickBooks, and Google Ads to sync business data through background workers, enabling centralized analytics and reporting.",
@@ -244,6 +271,7 @@ const projects = [
     },
     {
         name: "Finance & NSE Platform",
+        category: "Enterprise",
         private: true,
         description:
             "Backend system for financial data workflows and NSE-related processes — system design, architecture, and deployment, coordinating development as team lead.",
@@ -258,6 +286,7 @@ const projects = [
     },
     {
         name: "Multi-Tenant CA System",
+        category: "Enterprise",
         private: true,
         description:
             "Multi-tenant platform for Chartered Accountants to manage multiple clients, financial records, and workflows with backend APIs and a supporting web interface.",
@@ -274,6 +303,7 @@ const projects = [
     // ---- Public / personal projects (with live links) ----
     {
         name: "S3 File Manager",
+        category: "Open Source",
         private: false,
         description:
             "A web-based file manager for Amazon S3 and S3-compatible storage (e.g. Cloudflare R2) with a GNOME Files–inspired interface.",
@@ -290,6 +320,7 @@ const projects = [
     },
     {
         name: "Windows 11",
+        category: "Personal",
         private: false,
         description:
             "A pixel-faithful replica of the Windows 11 desktop built with vanilla HTML, CSS, and JavaScript.",
@@ -304,6 +335,7 @@ const projects = [
     },
     {
         name: "YouTube Clone",
+        category: "Personal",
         private: false,
         description:
             "A YouTube clone that consumes a live API to render trending content, built entirely with React.",
@@ -318,6 +350,7 @@ const projects = [
     },
     {
         name: "This Portfolio",
+        category: "Personal",
         private: false,
         description:
             "The site you're on — a dark, space-themed developer portfolio built with React, Three.js (R3F), Framer Motion, and Vite.",
@@ -328,7 +361,7 @@ const projects = [
             { name: "Vite", color: C.orange },
         ],
         image: portfolio,
-        project_link: "https://saurabhyadav.vercel.app",
+        project_link: "https://saurabh-yadav.me",
         source_code_link: "https://github.com/itsSauraj/myPortfolio",
     },
 ];

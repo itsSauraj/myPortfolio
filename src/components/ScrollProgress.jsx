@@ -18,6 +18,8 @@ const ScrollProgress = () => {
         if (reduce) return
 
         const lenis = new Lenis({ duration: 1.1, smoothWheel: true })
+        // Expose so cross-route hash navigation (ScrollToHash) can smooth-scroll.
+        window.__lenis = lenis
         let raf
         const loop = (time) => {
             lenis.raf(time)
@@ -43,6 +45,7 @@ const ScrollProgress = () => {
             cancelAnimationFrame(raf)
             document.removeEventListener("click", onClick)
             lenis.destroy()
+            delete window.__lenis
         }
     }, [])
 

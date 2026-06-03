@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { TbMenu2, TbX } from 'react-icons/tb'
 
 import { styles } from '../styles'
 import { navLinks, socialLinks } from '../constants'
+import { menu, close } from '../assets'
 import { Icon } from '../utils/icons'
 
+// Section links navigate to the home route + hash (works from any page; the
+// ScrollToHash helper in App smooth-scrolls after navigation). A link with a
+// `route` (e.g. Projects) is a normal page route.
+const linkTo = (link) => link.route || `/#${link.id}`
+const keyOf = (link) => link.id || link.route
+
 const Navbar = () => {
-    const [active, setActive] = useState('')
     const [open, setOpen] = useState(false)
+    const { pathname, hash } = useLocation()
+
+    const isActive = (link) =>
+        link.route ? pathname === link.route : pathname === '/' && hash === `#${link.id}`
 
     // Lock page scroll + close on Escape while the full-screen menu is open.
     useEffect(() => {
@@ -23,11 +32,6 @@ const Navbar = () => {
         }
     }, [open])
 
-    const select = (title) => {
-        setActive(title)
-        setOpen(false)
-    }
-
     return (
         <nav
             className={`${styles.paddingX} fixed top-0 z-30 flex w-full items-center border-b border-white/10 bg-space-900/70 py-4 backdrop-blur-md`}
@@ -37,7 +41,7 @@ const Navbar = () => {
                     to="/"
                     className="flex items-center gap-3"
                     data-cursor
-                    onClick={() => { setActive(''); setOpen(false); window.scrollTo(0, 0) }}
+                    onClick={() => setOpen(false)}
                 >
                     <img src="/logo.png" alt="Saurabh Yadav" className="h-9 w-9 object-contain" />
                     <p className="font-display text-[18px] uppercase tracking-tight text-white">
@@ -48,19 +52,18 @@ const Navbar = () => {
                 {/* Desktop links */}
                 <ul className="hidden list-none flex-row items-center gap-8 lg:flex">
                     {navLinks.map((link) => (
-                        <li key={link.id}>
-                            <a
-                                href={`#${link.id}`}
-                                onClick={() => select(link.title)}
+                        <li key={keyOf(link)}>
+                            <Link
+                                to={linkTo(link)}
                                 className={`font-mono text-[14px] uppercase tracking-widest transition-colors ${
-                                    active === link.title
+                                    isActive(link)
                                         ? 'text-accent-lavender'
                                         : 'text-secondary hover:text-white'
                                 }`}
                             >
                                 <span className="mr-1 text-accent-lavender/50">/</span>
                                 {link.title}
-                            </a>
+                            </Link>
                         </li>
                     ))}
                 </ul>
@@ -71,99 +74,98 @@ const Navbar = () => {
                     onClick={() => setOpen(true)}
                     data-cursor
                     aria-label="Open menu"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white transition-colors hover:border-accent-lavender/50 hover:text-accent-lavender lg:hidden"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:border-accent-lavender/50 lg:hidden"
                 >
-                    <TbMenu2 className="text-xl" />
+                    <img src={menu} alt="menu" className="h-6 w-6 object-contain" />
                 </button>
             </div>
 
             {/* Full-screen, terminal-style glass menu. Portaled to <body> so its
-                backdrop-blur isn't nested inside the navbar's own backdrop-filter
-                (which otherwise breaks the overlay's compositing). */}
+                backdrop-blur isn't nested inside the navbar's own backdrop-filter. */}
             {createPortal(
                 <AnimatePresence>
-                {open && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeOut' }}
-                        style={{ backgroundColor: 'rgba(4, 5, 14, 0.94)' }}
-                        className="fixed inset-0 z-[60] flex flex-col backdrop-blur-xl lg:hidden"
-                    >
-                        {/* Terminal chrome */}
-                        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-                            <span className="font-mono text-[12px] tracking-tight text-secondary">
-                                <span className="text-accent-mint">saurabh</span>
-                                <span className="text-white/40">@</span>
-                                <span className="text-accent-sky">portfolio</span>
-                                <span className="text-white/40">:~$</span>{' '}
-                                <span className="text-white">ls --sections</span>
-                            </span>
-                            <button
-                                type="button"
-                                onClick={() => setOpen(false)}
-                                data-cursor
-                                aria-label="Close menu"
-                                className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white transition-colors hover:border-accent-lavender/50 hover:text-accent-lavender"
-                            >
-                                <TbX className="text-xl" />
-                            </button>
-                        </div>
-
-                        {/* Links */}
-                        <motion.ul
-                            className="flex flex-1 flex-col justify-center gap-1 px-8"
-                            initial="hidden"
-                            animate="show"
-                            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.08 } } }}
+                    {open && (
+                        <motion.div
+                            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+                            animate={{ opacity: 1, backdropFilter: 'blur(24px)' }}
+                            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            style={{ backgroundColor: 'rgba(2, 3, 10, 0.6)', WebkitBackdropFilter: 'blur(24px)' }}
+                            className="fixed inset-0 z-[60] flex flex-col lg:hidden"
                         >
-                            {navLinks.map((link, i) => (
-                                <motion.li
-                                    key={link.id}
-                                    variants={{ hidden: { opacity: 0, x: -24 }, show: { opacity: 1, x: 0 } }}
+                            {/* Terminal chrome */}
+                            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+                                <span className="font-mono text-[12px] tracking-tight text-secondary">
+                                    <span className="text-accent-mint">saurabh</span>
+                                    <span className="text-white/40">@</span>
+                                    <span className="text-accent-sky">portfolio</span>
+                                    <span className="text-white/40">:~$</span>{' '}
+                                    <span className="text-white">ls --sections</span>
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => setOpen(false)}
+                                    data-cursor
+                                    aria-label="Close menu"
+                                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:border-accent-lavender/50"
                                 >
-                                    <a
-                                        href={`#${link.id}`}
-                                        onClick={() => select(link.title)}
-                                        data-cursor
-                                        className="group flex items-baseline gap-4 py-2"
-                                    >
-                                        <span className="font-mono text-[14px] text-accent-lavender/70">
-                                            0{i + 1}
-                                        </span>
-                                        <span className="font-display text-[13vw] uppercase leading-none tracking-tight text-white transition-colors group-hover:text-accent-lavender xs:text-[44px]">
-                                            {link.title}
-                                        </span>
-                                    </a>
-                                </motion.li>
-                            ))}
-                        </motion.ul>
+                                    <img src={close} alt="close" className="h-5 w-5 object-contain" />
+                                </button>
+                            </div>
 
-                        {/* Footer: status + socials */}
-                        <div className="border-t border-white/10 px-8 py-6">
-                            <div className="mb-4 flex items-center gap-2 font-mono text-[12px] uppercase tracking-widest text-secondary">
-                                <span className="h-2 w-2 animate-pulse rounded-full bg-accent-mint" />
-                                Available for work
-                            </div>
-                            <div className="flex flex-wrap gap-3">
-                                {socialLinks.map((s) => (
-                                    <a
-                                        key={s.name}
-                                        href={s.link}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        data-cursor
-                                        title={s.name}
-                                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-secondary transition-colors hover:border-accent-lavender/50 hover:text-accent-lavender"
+                            {/* Links */}
+                            <motion.ul
+                                className="flex flex-1 flex-col justify-center gap-1 px-8"
+                                initial="hidden"
+                                animate="show"
+                                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.08 } } }}
+                            >
+                                {navLinks.map((link, i) => (
+                                    <motion.li
+                                        key={keyOf(link)}
+                                        variants={{ hidden: { opacity: 0, x: -24 }, show: { opacity: 1, x: 0 } }}
                                     >
-                                        <Icon name={s.iconKey} className="text-[18px]" />
-                                    </a>
+                                        <Link
+                                            to={linkTo(link)}
+                                            onClick={() => setOpen(false)}
+                                            data-cursor
+                                            className="group flex items-baseline gap-4 py-2"
+                                        >
+                                            <span className="font-mono text-[14px] text-accent-lavender/70">
+                                                0{i + 1}
+                                            </span>
+                                            <span className="font-display text-[13vw] uppercase leading-none tracking-tight text-white transition-colors group-hover:text-accent-lavender xs:text-[44px]">
+                                                {link.title}
+                                            </span>
+                                        </Link>
+                                    </motion.li>
                                 ))}
+                            </motion.ul>
+
+                            {/* Footer: status + socials */}
+                            <div className="border-t border-white/10 px-8 py-6">
+                                <div className="mb-4 flex items-center gap-2 font-mono text-[12px] uppercase tracking-widest text-secondary">
+                                    <span className="h-2 w-2 animate-pulse rounded-full bg-accent-mint" />
+                                    Available for work
+                                </div>
+                                <div className="flex flex-wrap gap-3">
+                                    {socialLinks.map((s) => (
+                                        <a
+                                            key={s.name}
+                                            href={s.link}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            data-cursor
+                                            title={s.name}
+                                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-secondary transition-colors hover:border-accent-lavender/50 hover:text-accent-lavender"
+                                        >
+                                            <Icon name={s.iconKey} className="text-[18px]" />
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    </motion.div>
-                )}
+                        </motion.div>
+                    )}
                 </AnimatePresence>,
                 document.body
             )}

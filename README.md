@@ -7,7 +7,7 @@ scroll), and a 3D Three.js layer.
 
 ## Live Link
 
-Check out the live version [here](https://saurabhyadav.vercel.app).
+Check out the live version [here](https://saurabh-yadav.me).
 
 ## Tech Stack
 
@@ -42,7 +42,20 @@ The contact form is configured via `VITE_*` variables (see `.env.example`):
 
 These are inlined into the client bundle at build time (the EmailJS public key
 is publishable by design). For production, set the same variables in your
-**Vercel** project settings.
+**Cloudflare** dashboard (Workers & Pages → your project → Settings →
+Variables and Secrets) so they're present at build time.
+
+## Deployment
+
+Deployed to **Cloudflare** (Workers Static Assets) via Wrangler. SPA routing is
+handled by `assets.not_found_handling: "single-page-application"` in
+[`wrangler.jsonc`](wrangler.jsonc) — unknown paths fall back to `index.html` so
+client routes like `/projects` resolve. Build output is `dist/`.
+
+```bash
+npm run build
+npx wrangler deploy        # or: npm run deploy
+```
 
 ## About
 
@@ -55,4 +68,4 @@ deploy, and optimization.
 
 - [GitHub](https://github.com/itsSauraj)
 - [LinkedIn](https://www.linkedin.com/in/saurabhyadav07/)
-- [Live site](https://saurabhyadav.vercel.app/#contact)
+- [Live site](https://saurabh-yadav.me/#contact)
