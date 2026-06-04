@@ -1,24 +1,9 @@
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, Preload, useGLTF } from '@react-three/drei'
-import { RepeatWrapping, MirroredRepeatWrapping } from 'three'
+import { MirroredRepeatWrapping, CanvasTexture, SRGBColorSpace } from 'three'
 import CanvasLoader from '../Loader'
 import { models } from '../../constants'
-
-// The RGB-fan sprite sheets (baseColor + emissive) on these materials are 8x4
-// sheets (32 frames). The fans aren't on a perfect 1/8 x 1/4 grid, so we sample
-// each frame from the *measured* fan centres/spacing to keep it from drifting
-// up/down. Values are in source-image pixels (sheet 1708x775).
-const FAN = {
-    materials: ['Material.074_0', 'Material.074_17'],
-    sheet: { w: 1708, h: 775 },
-    cols: 8,
-    rows: 4,
-    frames: 32,
-    fps: 30,
-    first: { x: 109.5, y: 103.5 },   // centre of the top-left fan (px)
-    step: { x: 213.571, y: 189.5 },  // centre-to-centre spacing (px)
-}
 
 // Static colour-gradient texture (speakers + keyboard RGB). We spin it about
 // its centre for a flowing colour-cycle and pulse the emissive for a breathing
@@ -37,18 +22,12 @@ const Computers = ({ isMobile }) => {
     const { invalidate } = useThree()
 
     useEffect(() => {
-        // Collect maps/materials for the animated materials.
-        const fanMaps = []
         const rgbMaps = new Set()
         const rgbMats = new Set()
         computer.scene.traverse((obj) => {
             if (!obj.isMesh || !obj.material) return
             const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
             mats.forEach((m) => {
-                if (FAN.materials.includes(m.name)) {
-                    if (m.map) fanMaps.push(m.map)
-                    if (m.emissiveMap) fanMaps.push(m.emissiveMap)
-                }
                 if (RGB.materials.includes(m.name)) {
                     if (m.map) rgbMaps.add(m.map)
                     if (m.emissiveMap) rgbMaps.add(m.emissiveMap)
@@ -56,23 +35,7 @@ const Computers = ({ isMobile }) => {
                 }
             })
         })
-        if (!fanMaps.length && !rgbMaps.size) return
-
-        // --- Fan sprite sheet: sample one frame, centred on the fan ---
-        const { sheet, cols, step, first } = FAN
-        const setFanFrame = (n) => {
-            const col = n % cols
-            const row = Math.floor(n / cols)
-            const cx = first.x + col * step.x
-            const cy = first.y + row * step.y
-            fanMaps.forEach((t) => t.offset.set((cx - step.x / 2) / sheet.w, (cy - step.y / 2) / sheet.h))
-        }
-        fanMaps.forEach((t) => {
-            t.wrapS = t.wrapT = RepeatWrapping
-            t.repeat.set(step.x / sheet.w, step.y / sheet.h)
-            t.needsUpdate = true
-        })
-        setFanFrame(0)
+        if (!rgbMaps.size) return
 
         // --- RGB gradient: rotate about centre (+ mirror wrap to avoid seams) ---
         rgbMaps.forEach((t) => {
@@ -81,27 +44,110 @@ const Computers = ({ isMobile }) => {
             t.needsUpdate = true
         })
 
+        // --- Fan video texture (074_0 + 074_17 share the same video, color-graded via canvas) ---
+        const video17 = document.createElement('video')
+        video17.src = '/desktop_pc/textures/Material.074_17_baseVideo.mp4'
+        video17.crossOrigin = 'anonymous'
+        video17.loop = true
+        video17.muted = true
+        video17.playsInline = true
+
+        const canvas17 = document.createElement('canvas')
+        canvas17.width = 512
+        canvas17.height = 512
+        const ctx17 = canvas17.getContext('2d')
+
+        const videoTex17 = new CanvasTexture(canvas17)
+        videoTex17.colorSpace = SRGBColorSpace
+        videoTex17.flipY = false
+
+        const draw17 = () => {
+            if (video17.readyState < 2) return
+            ctx17.filter = 'brightness(1.5) contrast(1.5) saturate(1.4)'
+            ctx17.drawImage(video17, 0, 0, 512, 512)
+            videoTex17.needsUpdate = true
+        }
+        video17.addEventListener('loadeddata', draw17)
+        video17.play()
+
+        computer.scene.traverse((obj) => {
+            if (!obj.isMesh || !obj.material) return
+            const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
+            mats.forEach((m) => {
+                if (m.name === 'Material.074_0' || m.name === 'Material.074_17') {
+                    m.map = videoTex17
+                    m.emissiveMap = videoTex17
+                    m.needsUpdate = true
+                }
+            })
+        })
+
+        // --- Screen video texture (color-graded via canvas, redrawn every tick) ---
+        const video = document.createElement('video')
+        video.src = '/desktop_pc/textures/Material.074_30_baseVideo.mp4'
+        video.crossOrigin = 'anonymous'
+        video.loop = true
+        video.muted = true
+        video.playsInline = true
+
+        const canvas30 = document.createElement('canvas')
+        canvas30.width = 512
+        canvas30.height = 512
+        const ctx30 = canvas30.getContext('2d')
+        const draw30 = () => {
+            if (video.readyState < 2) return
+            ctx30.filter = 'brightness(0.45) contrast(1.7) saturate(2.2)'
+            ctx30.drawImage(video, 0, 0, 512, 512)
+            videoTex.needsUpdate = true
+        }
+        video.addEventListener('loadeddata', draw30)
+        video.play()
+
+        const videoTex = new CanvasTexture(canvas30)
+        videoTex.colorSpace = SRGBColorSpace
+        videoTex.flipY = false
+
+        computer.scene.traverse((obj) => {
+            if (!obj.isMesh || !obj.material) return
+            const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
+            mats.forEach((m) => {
+                if (m.name === 'Material.074_30') {
+                    m.map = videoTex
+                    m.emissiveMap = videoTex
+                    m.needsUpdate = true
+                }
+            })
+        })
+
         invalidate()
 
-        let frame = 0
         let tick = 0
         const id = setInterval(() => {
-            // Fan frame
-            frame = (frame + 1) % FAN.frames
-            setFanFrame(frame)
-
-            // RGB rotate + breathe
             tick += 1
-            const seconds = tick / FAN.fps
+            const seconds = tick / 30
+            // RGB rotate + breathe
             const rotation = seconds * RGB.rotSpeed
             rgbMaps.forEach((t) => { t.rotation = rotation })
             const breathe = RGB.breatheMid + RGB.breatheAmp * Math.sin((seconds / RGB.breathePeriod) * Math.PI * 2)
             rgbMats.forEach((mat) => { mat.emissiveIntensity = breathe })
-
+            // Redraw canvases for current video frames
+            draw17()
+            draw30()
+            videoTex.needsUpdate = true
             invalidate()
-        }, 1000 / FAN.fps)
+        }, 1000 / 30)
 
-        return () => clearInterval(id)
+        return () => {
+            clearInterval(id)
+            video17.removeEventListener('loadeddata', draw17)
+            video17.pause()
+            video17.src = ''
+            videoTex17.dispose()
+            video.removeEventListener('loadeddata', draw30)
+            video.pause()
+            video.src = ''
+            videoTex.dispose()
+        }
     }, [computer, invalidate])
 
     return (
@@ -116,6 +162,9 @@ const Computers = ({ isMobile }) => {
                 castShadow
                 shadow-mapSize={1024}
             />
+
+            {/* Screen glow — cool-white light simulating monitor emission */}
+            <pointLight position={[0.5, -1.2, 2.5]} intensity={0.45} color='#dde8ff' decay={1.5} />
 
             {/* Accent rim lights in the site's pastel palette */}
             <pointLight position={[-6, 3, 4]} intensity={1.5} color='#C9B8FF' decay={0} />
@@ -135,45 +184,68 @@ const Computers = ({ isMobile }) => {
 const ComputersCanvas = () => {
 
     const [isMobile, setIsMobile] = useState(false)
-
+    const [isFullscreen, setIsFullscreen] = useState(false)
+    const containerRef = useRef(null)
+    const orbitRef = useRef(null)
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(max-width: 500px)')
-
         setIsMobile(mediaQuery.matches)
-
-        const handleMediaQueryChange = (event) => {
-            setIsMobile(event.matches)
-        }
-
+        const handleMediaQueryChange = (event) => setIsMobile(event.matches)
         mediaQuery.addEventListener('change', handleMediaQueryChange)
-
-        return () => {
-            mediaQuery.removeEventListener('change',handleMediaQueryChange)
-        }
-
+        return () => mediaQuery.removeEventListener('change', handleMediaQueryChange)
     }, [])
 
+    useEffect(() => {
+        const onFSChange = () => {
+            const entering = !!document.fullscreenElement
+            if (!entering) orbitRef.current?.reset()
+            setIsFullscreen(entering)
+        }
+        document.addEventListener('fullscreenchange', onFSChange)
+        return () => document.removeEventListener('fullscreenchange', onFSChange)
+    }, [])
+
+    const handleDoubleClick = () => {
+        if (!document.fullscreenElement) {
+            containerRef.current?.requestFullscreen()
+        } else {
+            document.exitFullscreen()
+        }
+    }
 
     return (
-        <Canvas
-            className='cursor-grab'
-            frameloop="demand"
-            shadows
-            camera={{ position: [20, 2, 5], fov: 25 }}
-            gl={{ preserveDrawingBuffer: true }}
+        <div
+            ref={containerRef}
+            onDoubleClick={handleDoubleClick}
+            className='relative w-full h-full'
         >
-            <Suspense fallback={<CanvasLoader />}>
-                <OrbitControls
-                    enableZoom={false}
-                    enablePan={false}
-                    maxPolarAngle={Math.PI / 2}
-                    minPolarAngle={Math.PI / 2}
-                />
-                <Computers isMobile={isMobile} />
-            </Suspense>
-            <Preload all />
-        </Canvas>
+            <Canvas
+                className='cursor-grab'
+                frameloop="always"
+                shadows
+                camera={{ position: [20, 2, 5], fov: 25 }}
+                gl={{ preserveDrawingBuffer: true }}
+            >
+                <Suspense fallback={<CanvasLoader />}>
+                    <OrbitControls
+                        ref={orbitRef}
+                        enableZoom={isFullscreen}
+                        enablePan={isFullscreen}
+                        maxPolarAngle={isFullscreen ? Math.PI * 0.85 : Math.PI / 2}
+                        minPolarAngle={isFullscreen ? Math.PI * 0.15 : Math.PI / 2}
+                    />
+                    <Computers isMobile={isMobile} />
+                </Suspense>
+                <Preload all />
+            </Canvas>
+
+            {isFullscreen && (
+                <p className='absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs pointer-events-none select-none'>
+                    Scroll to zoom &nbsp;·&nbsp; Drag to orbit &nbsp;·&nbsp; Double-click to exit
+                </p>
+            )}
+        </div>
     )
 }
 
