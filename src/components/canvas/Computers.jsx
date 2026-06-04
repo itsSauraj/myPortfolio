@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, Preload, useGLTF } from '@react-three/drei'
-import { MirroredRepeatWrapping, CanvasTexture, SRGBColorSpace } from 'three'
+import { MirroredRepeatWrapping, RepeatWrapping, CanvasTexture, SRGBColorSpace } from 'three'
 import CanvasLoader from '../Loader'
 import { models } from '../../constants'
 
@@ -24,6 +24,7 @@ const Computers = ({ isMobile }) => {
     useEffect(() => {
         const rgbMaps = new Set()
         const rgbMats = new Set()
+        const scrollMaps = []
         computer.scene.traverse((obj) => {
             if (!obj.isMesh || !obj.material) return
             const mats = Array.isArray(obj.material) ? obj.material : [obj.material]
@@ -33,6 +34,7 @@ const Computers = ({ isMobile }) => {
                     if (m.emissiveMap) rgbMaps.add(m.emissiveMap)
                     rgbMats.add(m)
                 }
+                if (m.name === 'Material.074_6' && m.map) scrollMaps.push(m.map)
             })
         })
         if (!rgbMaps.size) return
@@ -41,6 +43,12 @@ const Computers = ({ isMobile }) => {
         rgbMaps.forEach((t) => {
             t.center.set(0.5, 0.5)
             t.wrapS = t.wrapT = MirroredRepeatWrapping
+            t.needsUpdate = true
+        })
+
+        // --- Material.074_6: infinite vertical scroll ---
+        scrollMaps.forEach((t) => {
+            t.wrapT = RepeatWrapping
             t.needsUpdate = true
         })
 
@@ -130,6 +138,8 @@ const Computers = ({ isMobile }) => {
             rgbMaps.forEach((t) => { t.rotation = rotation })
             const breathe = RGB.breatheMid + RGB.breatheAmp * Math.sin((seconds / RGB.breathePeriod) * Math.PI * 2)
             rgbMats.forEach((mat) => { mat.emissiveIntensity = breathe })
+            // Horizontal scroll for Material.074_6
+            scrollMaps.forEach((t) => { t.offset.y += 0.006 })
             // Redraw canvases for current video frames
             draw17()
             draw30()
