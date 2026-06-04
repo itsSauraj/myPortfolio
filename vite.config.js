@@ -10,7 +10,7 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             injectRegister: 'auto',
-            includeAssets: ['favicon.ico', 'logo.png', 'icon_black_bg.png'],
+            includeAssets: ['favicon.ico', 'logo.png', 'icon_theme_bg.png'],
             manifest: {
                 name: 'Saurabh Yadav | Full Stack Engineer',
                 short_name: 'Saurabh Yadav',
@@ -23,8 +23,8 @@ export default defineConfig({
                 start_url: '/',
                 scope: '/',
                 icons: [
-                    { src: '/icon_black_bg.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-                    { src: '/icon_black_bg.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+                    { src: '/icon_theme_bg.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+                    { src: '/icon_theme_bg.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
                 ],
             },
             // Precache the app shell only; large 3D/image assets load over the network.

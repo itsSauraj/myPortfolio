@@ -26,3 +26,4 @@ dev-dist
 *.njsproj
 *.sln
 *.sw?
+docs/
