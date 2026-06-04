@@ -7,6 +7,7 @@ import {
     CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, Marquee, SpotlightGrid
 } from './components'
 import Projects from './pages/Projects'
+import Timeline from './pages/Timeline'
 
 const MARQUEE_ITEMS = [
     "Full Stack Engineer",
@@ -87,6 +88,7 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/projects" element={<Projects />} />
+                        <Route path="/timeline" element={<Timeline />} />
                     </Routes>
                     <Footer />
                 </div>
