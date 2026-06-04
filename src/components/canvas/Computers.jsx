@@ -183,7 +183,7 @@ const Computers = ({ isMobile }) => {
             <pointLight position={[3, -1, 5]} intensity={0.8} color='#F3C0E0' decay={0} />
             <primitive
                 object={computer.scene}
-                scale={ isMobile ? 0.7 : 0.75}
+                scale={ isMobile ? 0.55 : 0.75}
                 position={ isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
                 rotation={[-0.01, -0.2, -0.1]}
             />
@@ -195,6 +195,7 @@ const ComputersCanvas = () => {
 
     const [isMobile, setIsMobile] = useState(false)
     const [isFullscreen, setIsFullscreen] = useState(false)
+    const [isDragging, setIsDragging] = useState(false)
     const containerRef = useRef(null)
     const orbitRef = useRef(null)
 
@@ -209,11 +210,37 @@ const ComputersCanvas = () => {
     useEffect(() => {
         const onFSChange = () => {
             const entering = !!document.fullscreenElement
-            if (!entering) orbitRef.current?.reset()
+            if (entering) {
+                document.body.classList.remove('has-custom-cursor')
+            } else {
+                document.body.classList.add('has-custom-cursor')
+                orbitRef.current?.reset()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
             setIsFullscreen(entering)
         }
         document.addEventListener('fullscreenchange', onFSChange)
         return () => document.removeEventListener('fullscreenchange', onFSChange)
+    }, [])
+
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.code === 'Space' && document.fullscreenElement) {
+                e.preventDefault()
+                if (orbitRef.current) orbitRef.current.mouseButtons.LEFT = 2 // PAN
+            }
+        }
+        const onKeyUp = (e) => {
+            if (e.code === 'Space') {
+                if (orbitRef.current) orbitRef.current.mouseButtons.LEFT = 0 // ROTATE
+            }
+        }
+        window.addEventListener('keydown', onKeyDown)
+        window.addEventListener('keyup', onKeyUp)
+        return () => {
+            window.removeEventListener('keydown', onKeyDown)
+            window.removeEventListener('keyup', onKeyUp)
+        }
     }, [])
 
     const handleDoubleClick = () => {
@@ -228,10 +255,32 @@ const ComputersCanvas = () => {
         <div
             ref={containerRef}
             onDoubleClick={handleDoubleClick}
+            onMouseDown={() => isFullscreen && setIsDragging(true)}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
             className='relative w-full h-full'
         >
+            {/* Hero-style grid + pulse lines — visible only in fullscreen */}
+            {isFullscreen && (
+                <div
+                    className='absolute inset-0 overflow-hidden pointer-events-none'
+                    style={{
+                        backgroundImage:
+                            'linear-gradient(rgba(201,184,255,0.05) 1px, transparent 1px),' +
+                            'linear-gradient(90deg, rgba(201,184,255,0.05) 1px, transparent 1px)',
+                        backgroundSize: '48px 48px',
+                    }}
+                >
+                    <span className='hero-pulse-v' style={{ right: '192px', animationDelay: '0s' }} />
+                    <span className='hero-pulse-v' style={{ right: '432px', animationDelay: '2.4s' }} />
+                    <span className='hero-pulse-v' style={{ right: '672px', animationDelay: '4.1s' }} />
+                    <span className='hero-pulse-h' style={{ top: '240px', animationDelay: '1s' }} />
+                    <span className='hero-pulse-h' style={{ top: '432px', animationDelay: '3.6s' }} />
+                </div>
+            )}
+
             <Canvas
-                className='cursor-grab'
+                className={isFullscreen ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-grab'}
                 frameloop="always"
                 shadows
                 camera={{ position: [20, 2, 5], fov: 25 }}
@@ -244,6 +293,7 @@ const ComputersCanvas = () => {
                         enablePan={isFullscreen}
                         maxPolarAngle={isFullscreen ? Math.PI * 0.85 : Math.PI / 2}
                         minPolarAngle={isFullscreen ? Math.PI * 0.15 : Math.PI / 2}
+                        mouseButtons={{ LEFT: 0, MIDDLE: 1, RIGHT: 2 }}
                     />
                     <Computers isMobile={isMobile} />
                 </Suspense>
@@ -252,7 +302,7 @@ const ComputersCanvas = () => {
 
             {isFullscreen && (
                 <p className='absolute bottom-4 left-1/2 -translate-x-1/2 text-white/50 text-xs pointer-events-none select-none'>
-                    Scroll to zoom &nbsp;·&nbsp; Drag to orbit &nbsp;·&nbsp; Double-click to exit
+                    Drag to orbit &nbsp;·&nbsp; Space + drag to pan &nbsp;·&nbsp; Scroll to zoom &nbsp;·&nbsp; Double-click to exit
                 </p>
             )}
         </div>
