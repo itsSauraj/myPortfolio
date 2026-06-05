@@ -27,3 +27,12 @@ dev-dist
 *.sln
 *.sw?
 docs/
+
+
+# Next .js build output
+.next/
+
+# Testing files
+.playwright-test/
+.playwright-mcp
+.wrangler/

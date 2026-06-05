@@ -1,9 +1,11 @@
+'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { styles } from '../styles'
-import { ComputersCanvas } from './canvas'
+import dynamic from 'next/dynamic'
+const ComputersCanvas = dynamic(() => import('./canvas/Computers'), { ssr: false })
 import HeroGrid from './HeroGrid'
 import { heroName, heroRoles } from '../constants'
 

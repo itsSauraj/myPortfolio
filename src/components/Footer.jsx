@@ -1,3 +1,4 @@
+'use client'
 import { socialLinks } from "../constants";
 import { Icon } from "../utils/icons";
 

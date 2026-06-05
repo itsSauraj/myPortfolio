@@ -1,3 +1,4 @@
+'use client'
 // Infinite horizontal scrolling band used as a subtle section divider.
 // The track holds two identical copies of the items and animates -50%, so the
 // loop is seamless. Pause on hover for a tactile feel.

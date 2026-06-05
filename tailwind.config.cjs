@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/**/*.{js,jsx}"],
+    content: ["./app/**/*.{js,jsx}", "./src/**/*.{js,jsx}"],
     mode: "jit",
     theme: {
         extend: {
@@ -42,7 +42,7 @@ module.exports = {
                 xs: "450px",
             },
             backgroundImage: {
-                "hero-pattern": "url('/src/assets/herobg.png')",
+                "hero-pattern": "url('/herobg.png')",
                 "space-grid":
                     "linear-gradient(rgba(201,184,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(201,184,255,0.05) 1px, transparent 1px)",
                 "space-grid-bright":

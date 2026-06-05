@@ -1,3 +1,4 @@
+'use client'
 import { BallCanvas, ComputersCanvas, StarsCanvas } from './canvas';
 import Hero from './Hero';
 import Navbar from './Navbar';

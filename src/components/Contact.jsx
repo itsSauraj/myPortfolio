@@ -1,20 +1,9 @@
+'use client'
 import { useState, useRef } from "react"
 import { motion } from "framer-motion"
-import emailjs from '@emailjs/browser'
-
 import { styles } from "../styles"
 import { SectionWrapper } from "../hoc"
 import { fadeIn } from "../utils/motion"
-
-// Config is read from environment (VITE_*). The EmailJS public key is
-// publishable by design; see .env.example. Set the same vars in Cloudflare.
-const EMAILJS = {
-    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-}
-const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL
-const CONTACT_NAME = import.meta.env.VITE_CONTACT_NAME || "Saurabh"
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -40,50 +29,34 @@ const Contact = () => {
         return Object.keys(next).length === 0
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setStatus(null)
-
         if (!validate()) return
 
-        if (!EMAILJS.serviceId || !EMAILJS.templateId || !EMAILJS.publicKey) {
+        setLoading(true)
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.error || 'Failed to send')
+            setStatus({
+                type: 'success',
+                message: "Thanks! I'll get back to you as soon as possible.",
+            })
+            setForm({ name: '', email: '', message: '' })
+        } catch (err) {
+            console.error('Contact form error:', err)
             setStatus({
                 type: 'error',
-                message: "The contact form isn't configured yet. Please reach me via the links in the footer.",
+                message: 'Something went wrong. Please try again, or email me directly.',
             })
-            return
+        } finally {
+            setLoading(false)
         }
-
-        setLoading(true)
-        emailjs
-            .send(
-                EMAILJS.serviceId,
-                EMAILJS.templateId,
-                {
-                    from_name: form.name,
-                    to_name: CONTACT_NAME,
-                    from_email: form.email,
-                    to_email: CONTACT_EMAIL,
-                    message: form.message,
-                },
-                EMAILJS.publicKey
-            )
-            .then(() => {
-                setLoading(false)
-                setStatus({
-                    type: 'success',
-                    message: "Thanks! I'll get back to you as soon as possible.",
-                })
-                setForm({ name: '', email: '', message: '' })
-            })
-            .catch((error) => {
-                console.error("EmailJS error:", error)
-                setLoading(false)
-                setStatus({
-                    type: 'error',
-                    message: "Something went wrong. Please try again, or email me directly.",
-                })
-            })
     }
 
     return (

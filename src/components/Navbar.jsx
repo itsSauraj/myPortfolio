@@ -1,6 +1,8 @@
+'use client'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Link, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { styles } from '../styles'
@@ -16,10 +18,16 @@ const keyOf = (link) => link.id || link.route
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
-    const { pathname, hash } = useLocation()
+    const [mounted, setMounted] = useState(false)
+    const pathname = usePathname()
 
-    const isActive = (link) =>
-        link.route ? pathname === link.route : pathname === '/' && hash === `#${link.id}`
+    const isActive = (link) => {
+        if (link.route) return pathname === link.route
+        if (typeof window === 'undefined') return false
+        return pathname === '/' && window.location.hash === `#${link.id}`
+    }
+
+    useEffect(() => { setMounted(true) }, [])
 
     // Lock page scroll + close on Escape while the full-screen menu is open.
     useEffect(() => {
@@ -54,7 +62,7 @@ const Navbar = () => {
                     {navLinks.map((link) => (
                         <li key={keyOf(link)}>
                             <Link
-                                to={linkTo(link)}
+                                href={linkTo(link)}
                                 className={`font-mono text-[14px] uppercase tracking-widest transition-colors ${
                                     isActive(link)
                                         ? 'text-accent-lavender'
@@ -82,7 +90,7 @@ const Navbar = () => {
 
             {/* Full-screen, terminal-style glass menu. Portaled to <body> so its
                 backdrop-blur isn't nested inside the navbar's own backdrop-filter. */}
-            {createPortal(
+            {mounted && createPortal(
                 <AnimatePresence>
                     {open && (
                         <motion.div
@@ -126,7 +134,7 @@ const Navbar = () => {
                                         variants={{ hidden: { opacity: 0, x: -24 }, show: { opacity: 1, x: 0 } }}
                                     >
                                         <Link
-                                            to={linkTo(link)}
+                                            href={linkTo(link)}
                                             onClick={() => setOpen(false)}
                                             data-cursor
                                             className="group flex items-baseline gap-4 py-2"

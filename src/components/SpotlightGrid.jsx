@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from "react"
 
 // Ambient space background + a cursor-following spotlight that makes the grid

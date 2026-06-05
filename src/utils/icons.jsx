@@ -1,3 +1,4 @@
+'use client'
 // Central icon registry. Components reference icons by a stable string key
 // (stored in src/constants) and this module resolves the key to a verified
 // react-icons component. Every export below was confirmed present in the
