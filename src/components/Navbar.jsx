@@ -19,15 +19,21 @@ const keyOf = (link) => link.id || link.route
 const Navbar = () => {
     const [open, setOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
+    const [currentHash, setCurrentHash] = useState('')
     const pathname = usePathname()
 
     const isActive = (link) => {
         if (link.route) return pathname === link.route
-        if (typeof window === 'undefined') return false
-        return pathname === '/' && window.location.hash === `#${link.id}`
+        return pathname === '/' && currentHash === `#${link.id}`
     }
 
-    useEffect(() => { setMounted(true) }, [])
+    useEffect(() => {
+        setMounted(true)
+        const updateHash = () => setCurrentHash(window.location.hash)
+        updateHash()
+        window.addEventListener('hashchange', updateHash)
+        return () => window.removeEventListener('hashchange', updateHash)
+    }, [])
 
     // Lock page scroll + close on Escape while the full-screen menu is open.
     useEffect(() => {
