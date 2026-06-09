@@ -32,6 +32,8 @@ docs/
 
 # Next .js build output
 .next/
+public/sw.js
+public/workbox-*.js
 
 # Testing files
 .playwright-test/
