@@ -11,14 +11,15 @@ node_modules
 dist
 dist-ssr
 dev-dist
+.env*
 *.local
+!.env.example
 
 # Cloudflare Wrangler local cache
 .wrangler
 
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo

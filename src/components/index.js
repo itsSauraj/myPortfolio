@@ -1,5 +1,4 @@
 'use client'
-import { BallCanvas, ComputersCanvas, StarsCanvas } from './canvas';
 import Hero from './Hero';
 import Navbar from './Navbar';
 import About from './About';
@@ -27,9 +26,6 @@ export {
     Works,
     Feedbacks,
     Contact,
-    BallCanvas,
-    ComputersCanvas,
-    StarsCanvas,
     Footer,
     CustomCursor,
     GrainOverlay,

@@ -79,7 +79,7 @@ export default function RootLayout({ children }) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
                 />
             </head>
-            <body>
+            <body suppressHydrationWarning>
                 <ClientProviders>
                     <IntroReveal />
                     <GrainOverlay />

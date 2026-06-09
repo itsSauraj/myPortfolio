@@ -46,7 +46,7 @@ const Navbar = () => {
         >
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
                 <Link
-                    to="/"
+                    href="/"
                     className="flex items-center gap-3"
                     data-cursor
                     onClick={() => setOpen(false)}
