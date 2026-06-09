@@ -100,7 +100,7 @@ export async function POST(request) {
 
         if (result.error) {
             console.error('Resend API error:', result.error)
-            return NextResponse.json({ error: result.error.message }, { status: 500 })
+            return NextResponse.json({ error: 'Failed to send message.' }, { status: 500 })
         }
 
         return NextResponse.json({ ok: true })
