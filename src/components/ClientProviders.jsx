@@ -9,11 +9,15 @@ export default function ClientProviders({ children }) {
 
         const lenis = new Lenis()
         window.__lenis = lenis
-        function raf(time) {
+
+        let rafId = null
+        let cancelled = false
+        const raf = (time) => {
+            if (cancelled) return
             lenis.raf(time)
-            requestAnimationFrame(raf)
+            rafId = requestAnimationFrame(raf)
         }
-        requestAnimationFrame(raf)
+        rafId = requestAnimationFrame(raf)
 
         const mq = window.matchMedia('(pointer: fine)')
         if (mq.matches) document.body.classList.add('has-custom-cursor')
@@ -24,6 +28,8 @@ export default function ClientProviders({ children }) {
         mq.addEventListener('change', onPointerChange)
 
         return () => {
+            cancelled = true
+            if (rafId !== null) cancelAnimationFrame(rafId)
             document.removeEventListener('contextmenu', handleContextmenu)
             lenis.destroy()
             window.__lenis = null
