@@ -13,7 +13,7 @@ import { Icon } from '../utils/icons'
 // Section links navigate to the home route + hash (works from any page; the
 // ScrollToHash helper in App smooth-scrolls after navigation). A link with a
 // `route` (e.g. Projects) is a normal page route.
-const linkTo = (link) => link.route || `/#${link.id}`
+const linkTo = (link) => link.route || (link.id ? `/#${link.id}` : '/')
 const keyOf = (link) => link.id || link.route
 
 const Navbar = () => {
