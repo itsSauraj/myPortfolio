@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import '../src/index.css'
 import { Navbar, Footer, CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, SpotlightGrid } from '../src/components'
 import ClientProviders from '../src/components/ClientProviders'
