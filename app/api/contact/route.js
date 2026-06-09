@@ -61,6 +61,11 @@ const buildHtml = (name, email, message) => `<!DOCTYPE html>
 
 export async function POST(request) {
     try {
+        if (!process.env.RESEND_API_KEY || !process.env.CONTACT_TO_EMAIL) {
+            console.error('Contact API misconfigured: missing RESEND_API_KEY or CONTACT_TO_EMAIL')
+            return NextResponse.json({ error: 'Server is not configured to send emails.' }, { status: 500 })
+        }
+
         const { name, email, message } = await request.json()
 
         if (!name?.trim() || !email?.trim() || !message?.trim()) {
@@ -68,16 +73,29 @@ export async function POST(request) {
         }
 
         const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (!EMAIL_RE.test(email.trim())) {
+        const cleanEmail = email.trim().replace(/[\r\n]+/g, ' ')
+        if (!EMAIL_RE.test(cleanEmail)) {
             return NextResponse.json({ error: 'Enter a valid email address.' }, { status: 400 })
         }
+
+        const escapeHtml = (value) =>
+            String(value).replace(/[&<>"']/g, (ch) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;',
+            })[ch])
+
+        const cleanName = name.trim().replace(/[\r\n]+/g, ' ')
+        const cleanMessage = message.trim()
 
         const result = await resend.emails.send({
             from: 'Portfolio Contact <contact@saurabh-yadav.me>',
             to: [process.env.CONTACT_TO_EMAIL],
-            replyTo: email.trim(),
-            subject: `New message from ${name.trim()}`,
-            html: buildHtml(name.trim(), email.trim(), message.trim()),
+            replyTo: cleanEmail,
+            subject: `New message from ${cleanName}`,
+            html: buildHtml(escapeHtml(cleanName), escapeHtml(cleanEmail), escapeHtml(cleanMessage)),
         })
 
         if (result.error) {
