@@ -1,5 +1,6 @@
+'use client'
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+import Link from 'next/link'
 
 import { styles } from "../styles"
 import { SectionWrapper } from "../hoc"
@@ -38,7 +39,7 @@ const Works = () => {
 
                 <motion.div variants={fadeIn("up", "spring", 0.2, 0.6)} className="mt-12">
                     <Link
-                        to="/projects"
+                        href="/projects"
                         data-cursor
                         className="btn-accent w-fit"
                     >

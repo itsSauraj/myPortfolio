@@ -1,3 +1,4 @@
+'use client'
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component"
 import { motion } from "framer-motion"
 
@@ -78,7 +79,7 @@ const Experience = () => {
             </motion.div>
 
             <div className="mt-20 flex flex-col">
-                <VerticalTimeline lineColor="#2A2550">
+                <VerticalTimeline lineColor="#2A2550" animate={false}>
                     {experiences.map((experience, index) => (
                         <ExperienceCard key={index} experience={experience} />
                     ))}

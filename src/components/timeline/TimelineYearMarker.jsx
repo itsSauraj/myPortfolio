@@ -1,3 +1,4 @@
+'use client'
 const TimelineYearMarker = ({ year }) => (
     <>
         {/* Desktop column (hidden on mobile) */}

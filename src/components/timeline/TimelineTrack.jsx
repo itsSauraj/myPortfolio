@@ -1,3 +1,4 @@
+'use client'
 import { useRef, useState, useEffect, useCallback } from 'react'
 import TimelineCard from './TimelineCard'
 import TimelineDot from './TimelineDot'
