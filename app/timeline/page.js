@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { styles } from '../../src/styles'
 import { timelineItems } from '../../src/constants'
@@ -14,7 +15,26 @@ export default function TimelinePage() {
                 variants={staggerContainer()}
                 className="mx-auto max-w-7xl px-6 sm:px-16"
             >
-                <motion.p variants={textVariant()} className={styles.sectionSubText}>
+                {/* Navigation */}
+                <motion.div
+                    variants={textVariant()}
+                    className="mb-10 flex flex-wrap gap-3"
+                >
+                    <Link
+                        href="/"
+                        className="rounded-xl border border-accent-lavender/40 bg-accent-lavender/10 px-5 py-2.5 font-mono text-[12px] uppercase tracking-widest text-accent-lavender transition-all hover:bg-accent-lavender/20 hover:shadow-glow"
+                    >
+                        ← Locate Me
+                    </Link>
+                    <Link
+                        href="/projects"
+                        className="rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 font-mono text-[12px] uppercase tracking-widest text-secondary transition-all hover:border-accent-lavender/40 hover:text-accent-lavender"
+                    >
+                        My Artifacts →
+                    </Link>
+                </motion.div>
+
+                <motion.p variants={textVariant(0.05)} className={styles.sectionSubText}>
                     Career & Projects
                 </motion.p>
                 <motion.h1 variants={textVariant(0.1)} className={styles.sectionHeadText}>
