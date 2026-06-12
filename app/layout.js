@@ -1,5 +1,4 @@
 import '../src/index.css'
-import Script from 'next/script'
 import { Navbar, Footer, CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, SpotlightGrid } from '../src/components'
 import ClientProviders from '../src/components/ClientProviders'
 import ScrollToHash from '../src/components/ScrollToHash'
@@ -165,20 +164,15 @@ export default function RootLayout({ children }) {
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
                 />
+                {/* Google Analytics — in <head> so GA's detection tool finds it in raw HTML */}
+                <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');`,
+                    }}
+                />
             </head>
             <body suppressHydrationWarning>
-                <Script
-                    src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-                    strategy="afterInteractive"
-                />
-                <Script id="ga-init" strategy="afterInteractive">
-                    {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', '${GA_ID}');
-                    `}
-                </Script>
                 <ClientProviders>
                     <IntroReveal />
                     <GrainOverlay />
