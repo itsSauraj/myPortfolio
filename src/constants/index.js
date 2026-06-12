@@ -5,6 +5,7 @@ import {
     windows,
     youtube,
     portfolio,
+    s3GnomeManager,
 
     anubhav,
     chirag_jain,
@@ -38,7 +39,7 @@ export const navLinks = [
 ];
 
 // Hero identity
-const heroName = "Saurabh";
+const heroName = "Saurabh Yadav";
 const heroRoles = [
     "Full Stack Engineer",
     "Backend & APIs",
@@ -169,6 +170,16 @@ const skillGroups = [
             { name: "Excalidraw", iconKey: "excalidraw" },
         ],
     },
+    {
+        title: "AI Workflow",
+        skills: [
+            { name: "Claude", iconKey: "claude" },
+            { name: "Claude Code", iconKey: "claudecode" },
+            { name: "GitHub Copilot", iconKey: "copilot" },
+            { name: "ChatGPT", iconKey: "chatgpt" },
+            { name: "Gemini", iconKey: "gemini" },
+        ],
+    },
 ];
 
 const experiences = [
@@ -189,7 +200,7 @@ const experiences = [
     },
     {
         title: "Full Stack Developer (Intern) · Team Lead",
-        company_name: "Yogya Capital",
+        company_name: "Yogya Capital · Scoop Investment",
         location: "Remote",
         icon: yogyaCapital,
         iconBg: "#FFFFFF",
@@ -197,7 +208,7 @@ const experiences = [
         points: [
             "Led project design, architecture, and deployment as Team Lead and Backend Developer.",
             "Coordinated the team and managed the end-to-end development process.",
-            "Built backend systems for finance and NSE-related workflows.",
+            "Built backend systems for the Finance & NSE Platform — Scoop Investment's core product.",
         ],
     },
     {
@@ -318,6 +329,7 @@ const projects = [
             { name: "Tailwind", color: C.orange },
             { name: "AWS SDK", color: C.green },
         ],
+        image: s3GnomeManager,
         accent: "#9FD4FF",
         project_link: "https://s3.saurabh-yadav.me",
         source_code_link: "https://github.com/itsSauraj/s3-gnome-manager",
