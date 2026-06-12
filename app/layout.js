@@ -1,7 +1,10 @@
 import '../src/index.css'
+import Script from 'next/script'
 import { Navbar, Footer, CustomCursor, GrainOverlay, IntroReveal, ScrollProgress, SpotlightGrid } from '../src/components'
 import ClientProviders from '../src/components/ClientProviders'
 import ScrollToHash from '../src/components/ScrollToHash'
+
+const GA_ID = 'G-YVHLS3QNYL'
 
 export const metadata = {
     title: 'Saurabh Yadav | Full Stack Developer in Surat, India',
@@ -164,6 +167,18 @@ export default function RootLayout({ children }) {
                 />
             </head>
             <body suppressHydrationWarning>
+                <Script
+                    src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                    strategy="afterInteractive"
+                />
+                <Script id="ga-init" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', '${GA_ID}');
+                    `}
+                </Script>
                 <ClientProviders>
                     <IntroReveal />
                     <GrainOverlay />
