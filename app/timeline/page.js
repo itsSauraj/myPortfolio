@@ -1,68 +1,48 @@
-'use client'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { styles } from '../../src/styles'
-import { timelineItems } from '../../src/constants'
-import { TimelineTrack } from '../../src/components/timeline'
-import { textVariant, staggerContainer } from '../../src/utils/motion'
+import TimelineClient from './TimelineClient'
+
+export const metadata = {
+    title: 'Career Timeline | Saurabh Yadav — Full Stack Developer',
+    description:
+        'Career timeline of Saurabh Yadav, Full Stack Developer in Surat, India — from B.Tech Computer Science through internships at theBackOffice and Yogya Capital to Full Stack Engineer at La Net Team Software Solutions.',
+    keywords: [
+        'Saurabh Yadav career', 'Saurabh Yadav experience', 'Saurabh Yadav timeline',
+        'Saurabh Yadav work history', 'Saurabh Yadav resume',
+        // La Net Team
+        'La Net Team Software Solutions developer', 'La Net Team Surat engineer',
+        'La Net Team team lead developer', 'La Net Team full stack developer',
+        'La Net Team Software Solutions Pvt Ltd',
+        // Yogya Capital / Scoop Investment
+        'Yogya Capital developer', 'Yogya Capital team lead',
+        'Yogya Capital Scoop Investment developer',
+        'Scoop Investment developer India', 'Scoop Investment team lead',
+        'Scoop Investment Finance platform developer',
+        // theBackOffice
+        'theBackOffice developer intern', 'theBackOffice full stack developer',
+        'theBackOffice CA management developer',
+        // Education
+        'B.Tech Computer Science engineer India', 'B.Tech CSE full stack developer',
+        // General career
+        'full stack developer career Surat', 'software engineer experience India',
+        'full stack engineer career path India', 'Python Django developer experience',
+        'React developer career India', 'software engineer Surat career',
+        'developer internship India', 'full stack developer journey India',
+        'software engineer portfolio timeline',
+    ],
+    alternates: { canonical: '/timeline' },
+    openGraph: {
+        title: 'Career Timeline | Saurabh Yadav — Full Stack Developer',
+        description:
+            'Career timeline of Saurabh Yadav — Full Stack Developer in Surat, India. Every internship, job, and project in chronological order.',
+        url: 'https://saurabh-yadav.me/timeline',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Career timeline of Saurabh Yadav' }],
+    },
+    twitter: {
+        title: 'Career Timeline | Saurabh Yadav — Full Stack Developer',
+        description:
+            'Career timeline of Saurabh Yadav — Full Stack Developer in Surat, India.',
+    },
+}
 
 export default function TimelinePage() {
-    return (
-        <section className="min-h-screen w-full overflow-hidden pb-24 pt-32">
-            <motion.div
-                initial="hidden"
-                animate="show"
-                variants={staggerContainer()}
-                className="mx-auto max-w-7xl px-6 sm:px-16"
-            >
-                {/* Navigation */}
-                <motion.div
-                    variants={textVariant()}
-                    className="mb-10 flex flex-wrap gap-3"
-                >
-                    <Link
-                        href="/"
-                        className="rounded-xl border border-accent-lavender/40 bg-accent-lavender/10 px-5 py-2.5 font-mono text-[12px] uppercase tracking-widest text-accent-lavender transition-all hover:bg-accent-lavender/20 hover:shadow-glow"
-                    >
-                        ← Locate Me
-                    </Link>
-                    <Link
-                        href="/projects"
-                        className="rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 font-mono text-[12px] uppercase tracking-widest text-secondary transition-all hover:border-accent-lavender/40 hover:text-accent-lavender"
-                    >
-                        My Artifacts →
-                    </Link>
-                </motion.div>
-
-                <motion.p variants={textVariant(0.05)} className={styles.sectionSubText}>
-                    Career & Projects
-                </motion.p>
-                <motion.h1 variants={textVariant(0.1)} className={styles.sectionHeadText}>
-                    Timeline
-                </motion.h1>
-                <motion.p
-                    variants={textVariant(0.2)}
-                    className="mt-4 max-w-2xl font-body text-[17px] leading-[30px] text-secondary"
-                >
-                    From early experiments to production systems — every internship, job, and
-                    personal project in chronological order.
-                </motion.p>
-                <motion.p
-                    variants={textVariant(0.3)}
-                    className="mt-2 hidden font-mono text-[11px] text-white/25 md:block"
-                >
-                    Scroll or drag to explore · Click any card to expand
-                </motion.p>
-            </motion.div>
-
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="mt-16"
-            >
-                <TimelineTrack items={timelineItems} />
-            </motion.div>
-        </section>
-    )
+    return <TimelineClient />
 }

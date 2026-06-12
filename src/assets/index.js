@@ -34,6 +34,7 @@ import _chirag_jain from "./testimonials/chirag_jain.png";
 import _windows from "./projects/windows.png";
 import _youtube from "./projects/youtube.png";
 import _portfolio from "./projects/portfolio.png";
+import _s3GnomeManager from "./projects/s3-gnome-manager.png";
 
 // Next.js image imports return { src, width, height } objects.
 // Extract .src so consumers always get a plain URL string.
@@ -75,3 +76,4 @@ export const chirag_jain  = s(_chirag_jain)
 export const windows      = s(_windows)
 export const youtube      = s(_youtube)
 export const portfolio    = s(_portfolio)
+export const s3GnomeManager = s(_s3GnomeManager)

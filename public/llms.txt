@@ -1,0 +1,41 @@
+# Saurabh Yadav — Full Stack Developer
+
+> Portfolio of Saurabh Yadav, Full Stack Software Engineer based in Surat, Gujarat, India.
+
+## About
+
+Saurabh Yadav is a Full Stack Engineer currently working at La Net Team Software Solutions Pvt. Ltd. in Surat, India.
+He builds high-performing, scalable web applications across the entire software lifecycle — from system architecture through development, deployment, and optimization.
+
+## Skills
+
+- **Languages & Frameworks**: Python, Django, FastAPI, Node.js, React, Next.js, TypeScript, JavaScript
+- **Databases**: PostgreSQL, MongoDB, Redis, SQLite
+- **AI & Machine Learning**: OpenAI, Anthropic (Claude), HuggingFace, LangChain, OpenRouter, NumPy, Pandas, OpenCV
+- **Integrations**: Stripe, Razorpay, Google Maps, Swagger, Shopify, Meta, Google Ads, QuickBooks, Paytm
+- **DevOps & Cloud**: Docker, Kubernetes, AWS, GCP, Cloudflare, GitHub Actions, Datadog
+- **Tools**: VS Code, PyCharm, Postman, Jira, Notion
+
+## Experience
+
+- **Full Stack Software Engineer** — La Net Team Software Solutions Pvt. Ltd., Surat, India (Sep 2024 – Present)
+- **Full Stack Developer & Team Lead** — Yogya Capital, Remote (Dec 2023 – Mar 2024)
+- **Full Stack Developer Intern** — theBackOffice, Remote (Jul 2023 – Nov 2023)
+
+## Education
+
+- B.Tech, Computer Science & Engineering
+
+## Contact & Social Profiles
+
+- Website: https://saurabh-yadav.me
+- Email: contact@saurabh-yadav.me
+- GitHub: https://github.com/itsSauraj
+- LinkedIn: https://www.linkedin.com/in/saurabhyadav07
+- Twitter/X: https://x.com/itssauraj
+- HackerRank: https://www.hackerrank.com/sy8502630
+
+## Projects
+
+- **S3 File Manager** (https://s3.saurabh-yadav.me) — Open-source GNOME-style file manager for AWS S3, built with React and Django
+- Enterprise projects in finance, business intelligence, DevOps automation, and operations management (details at https://saurabh-yadav.me/projects)

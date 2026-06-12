@@ -39,3 +39,4 @@ public/workbox-*.js
 .playwright-test/
 .playwright-mcp
 .wrangler/
+.claude/

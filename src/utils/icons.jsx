@@ -14,11 +14,11 @@ import {
     SiPycharm, SiWebstorm, SiDatadog, SiVercel, SiLinux, SiChartdotjs,
     SiX, SiWhatsapp, SiHackerrank, SiMacos, SiGooglechrome, SiGithubactions,
     SiJira, SiNotion, SiCloudflare, SiHostinger, SiSlack, SiDiagramsdotnet,
-    SiExcalidraw,
+    SiExcalidraw, SiClaude, SiGithubcopilot,
 } from "react-icons/si"
 import {
     TbApi, TbDatabase, TbRobot, TbCloudRain, TbChartHistogram, TbBrandAws,
-    TbBrandVscode, TbBrandTeams, TbMail, TbMessageDots,
+    TbBrandVscode, TbBrandTeams, TbMail, TbMessageDots, TbTerminal2,
 } from "react-icons/tb"
 import { FaLinkedin, FaWindows } from "react-icons/fa6"
 
@@ -60,6 +60,11 @@ const ICON_MAP = {
     openai: SiOpenai,
     gemini: SiGooglegemini,
     langchain: SiLangchain,
+    // AI Workflow tools
+    claude: SiClaude,
+    claudecode: TbTerminal2,
+    copilot: SiGithubcopilot,
+    chatgpt: SiOpenai,
     // Integrations
     stripe: SiStripe,
     razorpay: SiRazorpay,
