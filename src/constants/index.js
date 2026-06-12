@@ -200,7 +200,7 @@ const experiences = [
     },
     {
         title: "Full Stack Developer (Intern) · Team Lead",
-        company_name: "Yogya Capital",
+        company_name: "Yogya Capital · Scoop Investment",
         location: "Remote",
         icon: yogyaCapital,
         iconBg: "#FFFFFF",
@@ -208,7 +208,7 @@ const experiences = [
         points: [
             "Led project design, architecture, and deployment as Team Lead and Backend Developer.",
             "Coordinated the team and managed the end-to-end development process.",
-            "Built backend systems for finance and NSE-related workflows.",
+            "Built backend systems for the Finance & NSE Platform — Scoop Investment's core product.",
         ],
     },
     {
