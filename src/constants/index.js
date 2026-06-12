@@ -5,6 +5,7 @@ import {
     windows,
     youtube,
     portfolio,
+    s3GnomeManager,
 
     anubhav,
     chirag_jain,
@@ -38,7 +39,7 @@ export const navLinks = [
 ];
 
 // Hero identity
-const heroName = "Saurabh";
+const heroName = "Saurabh Yadav";
 const heroRoles = [
     "Full Stack Engineer",
     "Backend & APIs",
@@ -167,6 +168,16 @@ const skillGroups = [
             { name: "Teams", iconKey: "teams" },
             { name: "draw.io", iconKey: "drawio" },
             { name: "Excalidraw", iconKey: "excalidraw" },
+        ],
+    },
+    {
+        title: "AI Workflow",
+        skills: [
+            { name: "Claude", iconKey: "claude" },
+            { name: "Claude Code", iconKey: "claudecode" },
+            { name: "GitHub Copilot", iconKey: "copilot" },
+            { name: "ChatGPT", iconKey: "chatgpt" },
+            { name: "Gemini", iconKey: "gemini" },
         ],
     },
 ];
@@ -318,6 +329,7 @@ const projects = [
             { name: "Tailwind", color: C.orange },
             { name: "AWS SDK", color: C.green },
         ],
+        image: s3GnomeManager,
         accent: "#9FD4FF",
         project_link: "https://s3.saurabh-yadav.me",
         source_code_link: "https://github.com/itsSauraj/s3-gnome-manager",
