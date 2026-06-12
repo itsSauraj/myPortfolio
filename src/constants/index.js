@@ -50,6 +50,15 @@ const heroRoles = [
 const aboutText =
     "I'm a Full Stack Engineer who builds high-performing, scalable web applications — comfortable across the entire software lifecycle, from system architecture and design through development, deployment, and optimization. I work daily with Python, Node.js, React, TypeScript, and SCSS, integrating external APIs into reliable products, and I lean on Docker and CI/CD pipelines for dependable, automated deployments. I actively use AI-assisted workflows (Claude, Codex) and modern developer tooling to ship faster. With a B.Tech in Computer Science & Engineering completed, I now work as a Full Stack Software Engineer at La Net Team Software Solutions in Surat, applying engineering fundamentals to real-world problems while continuously learning.";
 
+// 5 skills shown inline in the About section
+const aboutSkills = [
+    { name: "Python",   iconKey: "python"   },
+    { name: "Django",   iconKey: "django"   },
+    { name: "React",    iconKey: "react"    },
+    { name: "Docker",   iconKey: "docker"   },
+    { name: "Claude",   iconKey: "claude"   },
+]
+
 const services = [
     {
         title: "Backend & APIs",
@@ -454,6 +463,7 @@ export {
     heroName,
     heroRoles,
     aboutText,
+    aboutSkills,
     services,
     skillGroups,
     experiences,
