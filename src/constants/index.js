@@ -6,6 +6,8 @@ import {
     youtube,
     portfolio,
     s3GnomeManager,
+    novafetch,
+    instant,
 
     anubhav,
     chirag_jain,
@@ -326,6 +328,40 @@ const projects = [
 
     // ---- Public / personal projects (with live links) ----
     {
+        name: "Instant",
+        category: "Personal",
+        private: false,
+        description:
+            "Serverless peer-to-peer sharing rooms over WebRTC — share files, stream cam & mic, and co-write notes in real time. Encrypted in transit via DTLS-SRTP, nothing stored server-side. Built with Next.js, TypeScript, Tailwind, and GSAP.",
+        tags: [
+            { name: "Next.js", color: C.blue },
+            { name: "TypeScript", color: C.pink },
+            { name: "WebRTC", color: C.green },
+            { name: "Tailwind", color: C.orange },
+        ],
+        image: instant,
+        project_link: "https://instant.saurabh-yadav.me",
+        source_code_link: "https://github.com/itsSauraj/instant",
+    },
+    {
+        name: "NovaFetch",
+        category: "Open Source",
+        private: false,
+        description:
+            "High-speed YouTube video & audio extraction. Desktop, mobile, Shorts, live — every format supported. Built with Next.js, React, TypeScript, Tailwind, and the AWS SDK.",
+        tags: [
+            { name: "Next.js", color: C.green },
+            { name: "React", color: C.green },
+            { name: "TypeScript", color: C.pink },
+            { name: "Tailwind", color: C.orange },
+            { name: "YouTube API - rapidapi", color: C.blue },
+        ],
+        image: novafetch,
+        accent: "#9FD4FF",
+        project_link: "https://novafetch.saurabh-yadav.me",
+        source_code_link: "https://github.com/itsSauraj/novafetch",
+    },
+    {
         name: "S3 File Manager",
         category: "Open Source",
         private: false,
@@ -388,7 +424,7 @@ const projects = [
         image: portfolio,
         project_link: "https://saurabh-yadav.me",
         source_code_link: "https://github.com/itsSauraj/myPortfolio",
-    },
+    }
 ];
 
 const testimonials = [
@@ -711,5 +747,46 @@ export const timelineItems = [
             live:   'https://s3.saurabh-yadav.me',
             source: 'https://github.com/itsSauraj/s3-gnome-manager',
         },
+    },
+    {
+        type: 'project',
+        sortDate: '2026-04',
+        date: 'April 2026',
+        title: 'NovaFetch',
+        description:
+            "High-speed YouTube video & audio extraction. Desktop, mobile, Shorts, live — every format supported. Built with Next.js, React, TypeScript, Tailwind, and the AWS SDK.",
+        tags: [
+            { name: "Next.js", color: "blue-text-gradient" },
+            { name: "React", color: "blue-text-gradient" },
+            { name: "TypeScript", color: "pink-text-gradient" },
+            { name: "Tailwind", color: "orange-text-gradient" },
+            { name: "YouTube API - rapidapi", color: "blue-text-gradient" },
+        ],
+        accent: "#9FD4FF",
+        links: {
+            live: "https://novafetch.saurabh-yadav.me",
+            source: "https://github.com/itsSauraj/novafetch",
+        }
+    },
+    {
+        type: 'project',
+        sortDate: '2026-07',
+        date: 'July 2026',
+        title: 'Instant',
+        description:
+            "Serverless peer-to-peer sharing rooms over WebRTC. Share files, stream cam & mic, and co-write notes in real time — encrypted in transit via DTLS-SRTP with nothing ever stored server-side. Built with Next.js, React, TypeScript, Tailwind, and GSAP.",
+        tags: [
+            { name: "Next.js", color: "blue-text-gradient" },
+            { name: "React", color: "blue-text-gradient" },
+            { name: "TypeScript", color: "pink-text-gradient" },
+            { name: "Tailwind", color: "orange-text-gradient" },
+            { name: "WebRTC", color: "green-text-gradient" },
+            { name: "GSAP", color: "orange-text-gradient" },
+        ],
+        accent: "#A78BFA",
+        links: {
+            live: "https://instant.saurabh-yadav.me",
+            source: "https://github.com/itsSauraj/instant",
+        }
     },
 ];
