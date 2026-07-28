@@ -329,7 +329,7 @@ const projects = [
     // ---- Public / personal projects (with live links) ----
     {
         name: "Instant",
-        category: "Personal",
+        category: "Open Source",
         private: false,
         description:
             "Serverless peer-to-peer sharing rooms over WebRTC — share files, stream cam & mic, and co-write notes in real time. Encrypted in transit via DTLS-SRTP, nothing stored server-side. Built with Next.js, TypeScript, Tailwind, and GSAP.",
