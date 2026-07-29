@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const buildHtml = (name, email, message) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,6 +87,10 @@ export async function POST(request) {
 
         const cleanName = name.trim().replace(/[\r\n]+/g, ' ')
         const cleanMessage = message.trim()
+
+        // Constructed per-request: a module-scope `new Resend()` throws at
+        // build time when RESEND_API_KEY isn't set in the environment.
+        const resend = new Resend(process.env.RESEND_API_KEY)
 
         const result = await resend.emails.send({
             from: 'Portfolio Contact <contact@saurabh-yadav.me>',

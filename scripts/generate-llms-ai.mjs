@@ -1,12 +1,16 @@
-// Optional build-time AI pass for /llms.txt.
+// Optional build-time AI pass for /llms.txt and the per-page "LLM view".
 //
-// Reads the site's source-of-truth files and asks an LLM to write a polished
-// llms.txt, saved to src/generated/llms-ai.txt. The route at
-// app/llms.txt/route.js serves that file when it exists; otherwise it serves
-// the deterministic version built by src/utils/llms.js.
+// Reads the site's source-of-truth files and asks an LLM to write:
+//   1. a polished llms.txt            → src/generated/llms-ai.txt
+//   2. one markdown doc per page      → src/generated/pages/<page>.md
+//      (home, projects, apps, timeline — shown by the LLM/Human toggle)
+//
+// app/llms.txt/route.js serves file 1 when it exists; the pages read file 2
+// via src/utils/getPageMarkdown.js. Both fall back to deterministic versions
+// built from src/constants (src/utils/llms.js and src/utils/pageMarkdown.js).
 //
 // Fail-soft by design: no API key, network error, or bad output → warn and
-// exit 0 so `next build` always succeeds with the deterministic fallback.
+// exit 0 so `next build` always succeeds with the deterministic fallbacks.
 //
 // Providers (auto-detected from whichever key is set; .env is loaded too):
 //   ANTHROPIC_API_KEY          → Claude   (console.anthropic.com,  model claude-sonnet-5)
@@ -20,7 +24,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const OUT_FILE = path.join(ROOT, "src", "generated", "llms-ai.txt");
+const LLMS_OUT_FILE = path.join(ROOT, "src", "generated", "llms-ai.txt");
+const PAGES_OUT_DIR = path.join(ROOT, "src", "generated", "pages");
 const TIMEOUT_MS = 120_000;
 
 // Load env files (plain `node` doesn't) without overriding real environment
@@ -52,13 +57,13 @@ const KEYS = { anthropic: anthropicKey, groq: groqKey, grok: xaiKey };
 
 let provider = process.env.LLMS_PROVIDER;
 if (provider && !(provider in KEYS)) {
-    console.warn(`[llms.txt] Unknown LLMS_PROVIDER "${provider}" (expected anthropic|groq|grok) — skipping AI pass.`);
+    console.warn(`[llms-ai] Unknown LLMS_PROVIDER "${provider}" (expected anthropic|groq|grok) — skipping AI pass.`);
     process.exit(0);
 }
 if (!provider) provider = anthropicKey ? "anthropic" : groqKey ? "groq" : xaiKey ? "grok" : null;
 
 if (!provider || !KEYS[provider]) {
-    console.log("[llms.txt] No AI API key set — skipping AI pass, the deterministic llms.txt will be served.");
+    console.log("[llms-ai] No AI API key set — skipping AI pass, the deterministic fallbacks will be served.");
     process.exit(0);
 }
 
@@ -74,7 +79,7 @@ function slimConstants(src) {
         .replace(/,?\s*color:\s*(C\.\w+|['"][\w-]+['"])/g, "")
         .replace(/,?\s*iconKey:\s*['"][\w-]*['"]/g, "")
         .split("\n")
-        .filter((line) => !/^\s*(icon|iconBg|image|accent|monogram)\s*:/.test(line))
+        .filter((line) => !/^\s*(icon|iconBg|image|accent|monogram|sortDate)\s*:/.test(line))
         .join("\n")
         .replace(/\n{3,}/g, "\n\n");
 }
@@ -89,15 +94,20 @@ function slimLayout(src) {
 let sources;
 try {
     sources = [
-        ["src/constants/index.js (all site content: about, skills, experience, projects, timeline, testimonials, socials; presentation props removed)", slimConstants(read("src/constants/index.js"))],
+        ["src/constants/index.js (all site content: about, skills, experience, projects, apps, timeline, testimonials, socials; presentation props removed)", slimConstants(read("src/constants/index.js"))],
         ["app/layout.js excerpt (SEO metadata + schema.org identity)", slimLayout(read("app/layout.js"))],
     ];
 } catch (err) {
-    console.warn(`[llms.txt] Could not read source files (${err.message}) — skipping AI pass.`);
+    console.warn(`[llms-ai] Could not read source files (${err.message}) — skipping AI pass.`);
     process.exit(0);
 }
 
-const SYSTEM_PROMPT = `You write llms.txt files (see https://llmstxt.org) for personal websites.
+const userContent = sources
+    .map(([label, text]) => `=== SOURCE: ${label} ===\n\n${text}`)
+    .join("\n\n");
+
+// ----------------------------------------------------------------- prompts
+const LLMS_SYSTEM_PROMPT = `You write llms.txt files (see https://llmstxt.org) for personal websites.
 
 You will receive the source files of saurabh-yadav.me, the portfolio of Saurabh Yadav. Generate the complete llms.txt content for the site.
 
@@ -105,20 +115,47 @@ Hard rules:
 - Output ONLY the raw llms.txt markdown. No preamble, no explanation, no code fences.
 - Start with an H1 ("# Saurabh Yadav — ..."), followed by a one-paragraph blockquote summary ("> ...").
 - Use ONLY facts present in the provided sources. Never invent projects, dates, employers, links, or numbers.
-- Include every project (mark enterprise ones as private/no public links), all experience entries with dates, skills grouped by category, testimonials, contact/social links, and the site's pages (https://saurabh-yadav.me/, /projects, /timeline, /design.md which documents the site's design system, /sitemap.xml).
+- Include every project (mark enterprise ones as private/no public links), every app from the \`apps\` array with its open/source links, all experience entries with dates, skills grouped by category, testimonials, contact/social links, and the site's pages (https://saurabh-yadav.me/, /projects, /apps, /timeline, /design.md which documents the site's design system, /sitemap.xml).
 - Keep URLs exactly as they appear in the sources.
 - Write for an AI assistant that wants to understand who Saurabh is, what he has built, and how to reach him. Clear, dense, factual prose over marketing fluff.`;
 
-const userContent = sources
-    .map(([label, text]) => `=== SOURCE: ${label} ===\n\n${text}`)
-    .join("\n\n");
+const PAGE_DEFS = [
+    { name: "home", url: "https://saurabh-yadav.me/", covers: "hero identity and roles, about, what he does (services), skills grouped by category, work experience with dates, testimonials, contact/social links" },
+    { name: "projects", url: "https://saurabh-yadav.me/projects", covers: "every entry in the `projects` array — open source and personal projects with live/source links, enterprise work marked as private with no public links — each with its description and stack" },
+    { name: "apps", url: "https://saurabh-yadav.me/apps", covers: "every entry in the `apps` array — name, tagline, description, category/platform/status, and its open + source links" },
+    { name: "timeline", url: "https://saurabh-yadav.me/timeline", covers: "every entry in the `timelineItems` array in chronological order — dates, titles, companies, descriptions, and any links" },
+];
 
-console.log(`[llms.txt] Prompt size: ${(SYSTEM_PROMPT.length + userContent.length).toLocaleString()} chars (~${Math.round((SYSTEM_PROMPT.length + userContent.length) / 4).toLocaleString()} tokens).`);
+const PAGES_SYSTEM_PROMPT = `You write the "LLM view" markdown twin for each page of saurabh-yadav.me, the portfolio of Saurabh Yadav. Every page of the site offers a human UI and a markdown version an AI can read; you produce the markdown versions.
+
+You will receive the site's source files. Generate one markdown document per page, in this exact output format (marker line, then the document):
+
+===PAGE: home===
+# ...
+===PAGE: projects===
+# ...
+===PAGE: apps===
+# ...
+===PAGE: timeline===
+# ...
+
+Pages and what each must fully cover:
+${PAGE_DEFS.map((p) => `- ${p.name} (${p.url}): ${p.covers}`).join("\n")}
+
+Hard rules:
+- Output ONLY the marker lines and markdown documents. No preamble, no explanation, no code fences.
+- Every document starts with an H1, followed by a one-paragraph blockquote summary ("> ...").
+- Use ONLY facts present in the provided sources. Never invent projects, dates, employers, links, or numbers.
+- Keep URLs exactly as they appear in the sources.
+- Dense and factual; prefer lists over prose; roughly 250–400 words per document.
+- End every document with the contact links (website, GitHub, LinkedIn, email).`;
+
+console.log(`[llms-ai] Sources size: ${userContent.length.toLocaleString()} chars (~${Math.round(userContent.length / 4).toLocaleString()} tokens).`);
 
 // -------------------------------------------------------------- API calls
-async function callAnthropic() {
+async function callAnthropic(system, user) {
     const model = process.env.LLMS_MODEL || "claude-sonnet-5";
-    console.log(`[llms.txt] Generating with Anthropic ${model}…`);
+    console.log(`[llms-ai] Generating with Anthropic ${model}…`);
     const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         signal: AbortSignal.timeout(TIMEOUT_MS),
@@ -130,8 +167,8 @@ async function callAnthropic() {
         body: JSON.stringify({
             model,
             max_tokens: 8192,
-            system: SYSTEM_PROMPT,
-            messages: [{ role: "user", content: userContent }],
+            system,
+            messages: [{ role: "user", content: user }],
         }),
     });
     if (!res.ok) throw new Error(`Anthropic API ${res.status}: ${(await res.text()).slice(0, 300)}`);
@@ -143,9 +180,9 @@ async function callAnthropic() {
 }
 
 // Groq and xAI both speak the OpenAI chat-completions dialect.
-async function callOpenAICompatible({ label, url, key, defaultModel }) {
+async function callOpenAICompatible({ label, url, key, defaultModel }, system, user) {
     const model = process.env.LLMS_MODEL || defaultModel;
-    console.log(`[llms.txt] Generating with ${label} ${model}…`);
+    console.log(`[llms-ai] Generating with ${label} ${model}…`);
     const res = await fetch(url, {
         method: "POST",
         signal: AbortSignal.timeout(TIMEOUT_MS),
@@ -155,12 +192,14 @@ async function callOpenAICompatible({ label, url, key, defaultModel }) {
         },
         body: JSON.stringify({
             model,
-            // Explicit cap — Groq counts input + max output against its
-            // tokens-per-minute rate limit when sizing a request.
-            max_tokens: 4096,
+            // Explicit cap — Groq counts input + max output against its 12k
+            // tokens-per-minute rate limit when sizing a request; with ~8k
+            // input tokens this must stay under ~3.9k. 3k is ample for both
+            // the llms.txt (~2k tokens) and the four page docs (~2.2k).
+            max_tokens: 3000,
             messages: [
-                { role: "system", content: SYSTEM_PROMPT },
-                { role: "user", content: userContent },
+                { role: "system", content: system },
+                { role: "user", content: user },
             ],
         }),
     });
@@ -171,38 +210,87 @@ async function callOpenAICompatible({ label, url, key, defaultModel }) {
 
 const PROVIDERS = {
     anthropic: callAnthropic,
-    groq: () =>
+    groq: (system, user) =>
         callOpenAICompatible({
             label: "Groq",
             url: "https://api.groq.com/openai/v1/chat/completions",
             key: KEYS.groq,
             defaultModel: "llama-3.3-70b-versatile",
-        }),
-    grok: () =>
+        }, system, user),
+    grok: (system, user) =>
         callOpenAICompatible({
             label: "xAI",
             url: "https://api.x.ai/v1/chat/completions",
             key: KEYS.grok,
             defaultModel: "grok-4",
-        }),
+        }, system, user),
 };
 
-// ---------------------------------------------------------------- run
-try {
-    let text = (await PROVIDERS[provider]()).trim();
+const generate = (system, user) => PROVIDERS[provider](system, user);
 
-    // Strip a wrapping code fence if the model added one despite instructions.
+// ---------------------------------------------------------------- helpers
+// Strip a wrapping code fence if the model added one despite instructions.
+function stripFence(text) {
     const fenced = text.match(/^```(?:\w+)?\n([\s\S]*?)\n```$/);
-    if (fenced) text = fenced[1].trim();
+    return fenced ? fenced[1].trim() : text;
+}
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Groq's free tier caps tokens per minute — space the two calls out so the
+// second one doesn't 429. Anthropic/xAI don't need it.
+async function throttle() {
+    if (provider !== "groq") return;
+    console.log("[llms-ai] Groq tokens-per-minute limit — waiting 65s before the next call…");
+    await sleep(65_000);
+}
+
+function writeFileEnsuringDir(file, text) {
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, text + "\n", "utf8");
+}
+
+// Split "===PAGE: name===" delimited output into { name: markdown }.
+function parsePages(text) {
+    const pages = {};
+    const parts = text.split(/^===\s*PAGE:\s*([a-z]+)\s*===\s*$/m);
+    for (let i = 1; i < parts.length; i += 2) {
+        const body = (parts[i + 1] ?? "").trim();
+        if (body) pages[parts[i]] = stripFence(body);
+    }
+    return pages;
+}
+
+// ---------------------------------------------------------------- run
+// Each pass is independently fail-soft: a failure only means that output's
+// deterministic fallback gets served.
+try {
+    let text = stripFence((await generate(LLMS_SYSTEM_PROMPT, userContent)).trim());
     const valid = text.startsWith("# ") && text.includes("Saurabh") && text.length > 500;
     if (!valid) throw new Error(`output failed validation (starts-with-h1=${text.startsWith("# ")}, length=${text.length})`);
-
-    fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
-    fs.writeFileSync(OUT_FILE, text + "\n", "utf8");
-    console.log(`[llms.txt] AI version written to ${path.relative(ROOT, OUT_FILE)} (${text.length} chars).`);
+    writeFileEnsuringDir(LLMS_OUT_FILE, text);
+    console.log(`[llms-ai] llms.txt written to ${path.relative(ROOT, LLMS_OUT_FILE)} (${text.length} chars).`);
 } catch (err) {
-    console.warn(`[llms.txt] AI pass failed (${err.message}) — the deterministic llms.txt will be served.`);
+    console.warn(`[llms-ai] llms.txt pass failed (${err.message}) — the deterministic llms.txt will be served.`);
+}
+
+try {
+    await throttle();
+    const raw = (await generate(PAGES_SYSTEM_PROMPT, userContent)).trim();
+    const pages = parsePages(raw);
+    let written = 0;
+    for (const { name } of PAGE_DEFS) {
+        const md = pages[name];
+        if (!md || !md.startsWith("# ") || md.length < 200) {
+            console.warn(`[llms-ai] page "${name}" missing or failed validation — its deterministic markdown will be served.`);
+            continue;
+        }
+        writeFileEnsuringDir(path.join(PAGES_OUT_DIR, `${name}.md`), md);
+        written += 1;
+    }
+    console.log(`[llms-ai] ${written}/${PAGE_DEFS.length} page markdown files written to ${path.relative(ROOT, PAGES_OUT_DIR)}.`);
+} catch (err) {
+    console.warn(`[llms-ai] page markdown pass failed (${err.message}) — the deterministic page markdown will be served.`);
     // No process.exit() here: exiting naturally (code 0) avoids a libuv
     // assertion crash on Windows when handles are still closing.
 }

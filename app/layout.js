@@ -6,14 +6,18 @@ import ScrollToHash from '../src/components/ScrollToHash'
 const GA_ID = 'G-YVHLS3QNYL'
 
 export const metadata = {
-    title: 'Saurabh Yadav | Full Stack Developer in Surat, India',
+    title: 'Saurabh Yadav | Full Stack & AI Developer in Surat, India',
     description:
-        'Saurabh Yadav — Full Stack Developer based in Surat, India. Building scalable web applications with Python, Django, FastAPI, React, Next.js, TypeScript, Docker, Kubernetes, and AWS.',
+        'Saurabh Yadav — Full Stack & AI Developer based in Surat, Gujarat, India. Building scalable web applications and AI integrations with Python, Django, FastAPI, React, Next.js, TypeScript, Docker, Kubernetes, and AWS. Creator of Instant, NovaFetch, and S3 File Manager.',
     keywords: [
         // Branded — personal identity
         'Saurabh Yadav', 'Saurabh Yadav developer', 'Saurabh Yadav portfolio',
         'Saurabh Yadav full stack', 'Saurabh Yadav India', 'Saurabh Yadav Surat',
-        'Saurabh Yadav software engineer', 'itsSauraj',
+        'Saurabh Yadav software engineer', 'itsSauraj', 'saurabh-yadav.me',
+        'Saurabh Yadav AI developer', 'Saurabh Yadav website',
+        'Saurabh Yadav LinkedIn', 'Saurabh Yadav GitHub', 'Saurabh Yadav X Twitter',
+        'Saurabh Yadav email', 'Saurabh Yadav contact', 'contact@saurabh-yadav.me',
+        'Saurabh Yadav apps', 'Saurabh Yadav projects', 'Saurabh Yadav resume',
 
         // Local — Surat / Gujarat / India
         'developers in Surat', 'developer in Surat', 'software developer Surat',
@@ -32,6 +36,10 @@ export const metadata = {
         'TypeScript Developer', 'AI Developer', 'Cloud Engineer',
         'full stack developer India', 'software engineer India',
         'hire full stack developer India', 'remote developer India',
+        'AI developers in India', 'AI developer India', 'AI engineer India',
+        'AI developer Surat', 'AI engineer Surat', 'AI integration developer India',
+        'LLM integration developer', 'hire AI developer India',
+        'developers in India', 'best developers in Surat',
 
         // Skills & technologies
         'Python', 'Django', 'FastAPI', 'Celery', 'REST API',
@@ -51,29 +59,38 @@ export const metadata = {
         'DevRob developer', 'BCG internal tool developer',
         'Finance NSE platform developer', 'multi-tenant CA system developer',
         'S3 file manager developer', 's3-gnome-manager',
+        'Instant app', 'Instant WebRTC sharing rooms', 'Instant P2P file sharing',
+        'NovaFetch', 'NovaFetch YouTube downloader', 'NovaFetch developer',
 
         // Domain / intent
         'software engineer portfolio', 'developer portfolio India',
         'full stack portfolio', 'open source developer India',
     ],
     authors: [{ name: 'Saurabh Yadav', url: 'https://saurabh-yadav.me' }],
+    creator: 'Saurabh Yadav',
+    publisher: 'Saurabh Yadav',
     robots: { index: true, follow: true },
     metadataBase: new URL('https://saurabh-yadav.me'),
     alternates: { canonical: '/' },
+    // Google Search Console ownership proof — set GOOGLE_SITE_VERIFICATION in
+    // the environment (Vercel dashboard / .env.local); omitted when unset.
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+        ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+        : {}),
     openGraph: {
         type: 'profile',
         siteName: 'Saurabh Yadav',
         locale: 'en_US',
-        title: 'Saurabh Yadav | Full Stack Developer in Surat, India',
+        title: 'Saurabh Yadav | Full Stack & AI Developer in Surat, India',
         description:
-            'Full Stack Developer in Surat, India — Python, Django, FastAPI, React, Next.js, TypeScript, AI integrations, Docker, Kubernetes, AWS.',
+            'Full Stack & AI Developer in Surat, India — Python, Django, FastAPI, React, Next.js, TypeScript, AI integrations, Docker, Kubernetes, AWS. Creator of Instant, NovaFetch, and S3 File Manager.',
         url: 'https://saurabh-yadav.me',
         images: [
             {
                 url: '/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'Saurabh Yadav — Full Stack Developer based in Surat, India',
+                alt: 'Saurabh Yadav — Full Stack & AI Developer based in Surat, India',
             },
         ],
     },
@@ -81,9 +98,9 @@ export const metadata = {
         card: 'summary_large_image',
         site: '@itssauraj',
         creator: '@itssauraj',
-        title: 'Saurabh Yadav | Full Stack Developer in Surat, India',
+        title: 'Saurabh Yadav | Full Stack & AI Developer in Surat, India',
         description:
-            'Full Stack Developer in Surat, India — Python, Django, FastAPI, React, Next.js, TypeScript, AI integrations, Docker, Kubernetes, AWS.',
+            'Full Stack & AI Developer in Surat, India — Python, Django, FastAPI, React, Next.js, TypeScript, AI integrations, Docker, Kubernetes, AWS.',
         images: ['/og-image.png'],
     },
 }
@@ -92,12 +109,14 @@ const person = {
     '@type': 'Person',
     '@id': 'https://saurabh-yadav.me/#person',
     name: 'Saurabh Yadav',
+    alternateName: ['itsSauraj', 'Saurabh Yadav (itsSauraj)'],
     url: 'https://saurabh-yadav.me',
+    mainEntityOfPage: 'https://saurabh-yadav.me',
     image: 'https://saurabh-yadav.me/og-image.png',
     jobTitle: 'Full Stack Engineer',
     email: 'contact@saurabh-yadav.me',
     description:
-        'Full Stack Engineer based in Surat, India. Builds scalable web applications with Python, Django, FastAPI, React, Next.js, TypeScript, Docker, Kubernetes, and AWS.',
+        'Full Stack & AI Developer based in Surat, Gujarat, India. Builds scalable web applications and AI integrations with Python, Django, FastAPI, React, Next.js, TypeScript, Docker, Kubernetes, and AWS. Creator of Instant, NovaFetch, and S3 File Manager.',
     address: {
         '@type': 'PostalAddress',
         addressLocality: 'Surat',
@@ -119,7 +138,8 @@ const person = {
     },
     knowsAbout: [
         'Python', 'Django', 'FastAPI', 'React', 'Next.js', 'TypeScript',
-        'AI Integrations', 'Docker', 'Kubernetes', 'AWS', 'GCP', 'LangChain',
+        'AI Integrations', 'Artificial Intelligence', 'LLM Integrations',
+        'Docker', 'Kubernetes', 'AWS', 'GCP', 'LangChain',
     ],
     sameAs: [
         'https://github.com/itsSauraj',
@@ -146,8 +166,11 @@ const schemaOrg = [
         '@id': 'https://saurabh-yadav.me/#website',
         url: 'https://saurabh-yadav.me',
         name: 'Saurabh Yadav',
-        description: 'Portfolio of Saurabh Yadav — Full Stack Developer in Surat, India',
+        alternateName: ['saurabh-yadav.me', 'Saurabh Yadav Portfolio'],
+        description: 'Portfolio of Saurabh Yadav — Full Stack & AI Developer in Surat, India',
         author: { '@id': 'https://saurabh-yadav.me/#person' },
+        publisher: { '@id': 'https://saurabh-yadav.me/#person' },
+        inLanguage: 'en',
     },
 ]
 

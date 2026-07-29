@@ -13,6 +13,12 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: 'https://saurabh-yadav.me/apps',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: 'https://saurabh-yadav.me/timeline',
             lastModified: new Date(),
             changeFrequency: 'monthly',

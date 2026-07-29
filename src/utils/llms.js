@@ -14,6 +14,7 @@ import {
     skillGroups,
     experiences,
     projects,
+    apps,
     testimonials,
     socialLinks,
     timelineItems,
@@ -61,6 +62,7 @@ export function buildLlmsTxt() {
         "",
         `- [Home](${SITE_URL}/): hero, about, work experience, skills, testimonials, and contact form`,
         `- [Projects](${SITE_URL}/projects): all projects — open source, personal, and enterprise work`,
+        `- [Apps](${SITE_URL}/apps): live apps & web apps, free to open in the browser`,
         `- [Timeline](${SITE_URL}/timeline): chronological history of roles and projects`,
         `- [Design system](${SITE_URL}/design.md): how this site is designed (colors, type, motion)`,
         `- [Sitemap](${SITE_URL}/sitemap.xml)`,
@@ -80,6 +82,13 @@ export function buildLlmsTxt() {
         ...experiences.map(
             (e) =>
                 `### ${e.title} — ${e.company_name}\n${e.location} · ${e.date}\n${e.points.map((p) => `- ${p}`).join("\n")}`
+        ),
+        "",
+        "## Apps (live, free to use)",
+        "",
+        ...apps.map(
+            (a) =>
+                `- **${a.name}** — ${a.tagline}. Open: ${a.links.open}${a.links.source ? ` · Source: ${a.links.source}` : ""}`
         ),
         "",
         "## Open Source & Personal Projects",

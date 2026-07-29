@@ -1,4 +1,6 @@
 import TimelineClient from './TimelineClient'
+import PageView from '../../src/components/PageView'
+import { getPageMarkdown } from '../../src/utils/getPageMarkdown'
 
 export const metadata = {
     title: 'Career Timeline | Saurabh Yadav — Full Stack Developer',
@@ -43,6 +45,27 @@ export const metadata = {
     },
 }
 
+const schemaOrg = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://saurabh-yadav.me' },
+            { '@type': 'ListItem', position: 2, name: 'Timeline', item: 'https://saurabh-yadav.me/timeline' },
+        ],
+    },
+]
+
 export default function TimelinePage() {
-    return <TimelineClient />
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+            />
+            <PageView page="timeline" markdown={getPageMarkdown('timeline')}>
+                <TimelineClient />
+            </PageView>
+        </>
+    )
 }
