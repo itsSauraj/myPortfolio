@@ -10,7 +10,8 @@
     },
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "node scripts/generate-llms-ai.mjs && next build",
+        "generate:llms": "node scripts/generate-llms-ai.mjs",
         "start": "next start",
         "lint": "next lint"
     },

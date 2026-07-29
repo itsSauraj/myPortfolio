@@ -35,6 +35,9 @@ docs/
 public/sw.js
 public/workbox-*.js
 
+# AI-generated llms.txt (scripts/generate-llms-ai.mjs)
+src/generated/
+
 # Testing files
 .playwright-test/
 .playwright-mcp
