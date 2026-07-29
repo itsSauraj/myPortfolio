@@ -35,9 +35,28 @@ const Footer = () => {
             </div>
 
             <div className="border-t-2 border-white/20 py-4">
-                <p className="text-center font-mono text-[12px] uppercase tracking-widest text-secondary">
-                    © {year} Saurabh Yadav — All rights reserved.
-                </p>
+                <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-6 sm:flex-row sm:justify-between">
+                    <p className="text-center font-mono text-[12px] uppercase tracking-widest text-secondary">
+                        © {year} Saurabh Yadav — All rights reserved.
+                    </p>
+                    <div className="flex items-center gap-4 font-mono text-[12px] uppercase tracking-widest">
+                        <a
+                            href="/design.md"
+                            data-cursor
+                            className="text-secondary transition-colors hover:text-accent-lavender"
+                        >
+                            Design System
+                        </a>
+                        <span className="text-white/20">·</span>
+                        <a
+                            href="/llms.txt"
+                            data-cursor
+                            className="text-secondary transition-colors hover:text-accent-lavender"
+                        >
+                            llms.txt
+                        </a>
+                    </div>
+                </div>
             </div>
         </footer>
     )
