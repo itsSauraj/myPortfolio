@@ -31,6 +31,10 @@ export const navLinks = [
         title: "Projects",
     },
     {
+        route: "/apps",
+        title: "Apps",
+    },
+    {
         route: "/timeline",
         title: "Timeline",
     },
@@ -427,6 +431,86 @@ const projects = [
     }
 ];
 
+// Live apps & web apps listed on /apps. `icon` is the artwork rendered as the
+// app icon; `links.open` is where the app runs, `links.source` its code.
+const apps = [
+    {
+        name: "Instant",
+        tagline: "Peer-to-peer sharing rooms",
+        description:
+            "Serverless rooms over WebRTC — share files, stream cam & mic, and co-write notes in real time. Encrypted in transit via DTLS-SRTP, nothing stored server-side.",
+        icon: instant,
+        category: "Collaboration",
+        platform: "Web",
+        status: "Live",
+        accent: "#A78BFA",
+        links: {
+            open: "https://instant.saurabh-yadav.me",
+            source: "https://github.com/itsSauraj/instant",
+        },
+    },
+    {
+        name: "NovaFetch",
+        tagline: "YouTube video & audio extraction",
+        description:
+            "High-speed YouTube video & audio extraction. Desktop, mobile, Shorts, live — every format supported.",
+        icon: novafetch,
+        category: "Media",
+        platform: "Web",
+        status: "Live",
+        accent: "#9FD4FF",
+        links: {
+            open: "https://novafetch.saurabh-yadav.me",
+            source: "https://github.com/itsSauraj/novafetch",
+        },
+    },
+    {
+        name: "S3 File Manager",
+        tagline: "GNOME-style S3 browser",
+        description:
+            "Web-based file manager for Amazon S3 and S3-compatible storage (e.g. Cloudflare R2) with a GNOME Files–inspired interface.",
+        icon: s3GnomeManager,
+        category: "Developer Tools",
+        platform: "Web",
+        status: "Live",
+        accent: "#A9E8D0",
+        links: {
+            open: "https://s3.saurabh-yadav.me",
+            source: "https://github.com/itsSauraj/s3-gnome-manager",
+        },
+    },
+    {
+        name: "Windows 11 Clone",
+        tagline: "The desktop, in your browser",
+        description:
+            "A pixel-faithful replica of the Windows 11 desktop built with vanilla HTML, CSS, and JavaScript.",
+        icon: windows,
+        category: "Experiments",
+        platform: "Web",
+        status: "Live",
+        accent: "#9FD4FF",
+        links: {
+            open: "https://itsSauraj.github.io/Windows11-Clone",
+            source: "https://github.com/itsSauraj/Windows11-Clone.git",
+        },
+    },
+    {
+        name: "YouTube Clone",
+        tagline: "Trending videos, rebuilt in React",
+        description:
+            "A YouTube clone that consumes a live API to render trending content, built entirely with React.",
+        icon: youtube,
+        category: "Experiments",
+        platform: "Web",
+        status: "Live",
+        accent: "#F3C0E0",
+        links: {
+            open: "https://youtube-clone-react-18.netlify.app/",
+            source: "https://github.com/itsSauraj/YoutubeCloneReact.git",
+        },
+    },
+];
+
 const testimonials = [
     {
         testimonial:
@@ -504,6 +588,7 @@ export {
     skillGroups,
     experiences,
     projects,
+    apps,
     testimonials,
     models,
     socialLinks,
