@@ -1,9 +1,10 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Wraps a page's human UI and its build-time AI-generated markdown twin.
 // A fixed pill under the navbar switches between the two; the LLM view
 // renders the raw markdown in a terminal-style panel with a copy button.
+// The choice is mirrored to the URL (?view=llm) so it survives a refresh.
 const VIEWS = [
     { key: 'human', label: 'Human' },
     { key: 'llm', label: 'LLM' },
@@ -13,9 +14,22 @@ export default function PageView({ page, markdown, children }) {
     const [view, setView] = useState('human')
     const [copied, setCopied] = useState(false)
 
+    // Restore the view from the URL after hydration. Reading window.location
+    // in an effect (instead of useSearchParams) keeps the page statically
+    // prerendered with the human view — crawlers always index the real UI.
+    useEffect(() => {
+        if (new URLSearchParams(window.location.search).get('view') === 'llm') {
+            setView('llm')
+        }
+    }, [])
+
     const switchTo = (v) => {
         if (v === view) return
         setView(v)
+        const url = new URL(window.location.href)
+        if (v === 'llm') url.searchParams.set('view', 'llm')
+        else url.searchParams.delete('view')
+        window.history.replaceState(null, '', url)
         window.scrollTo(0, 0)
     }
 
