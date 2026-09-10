@@ -33,7 +33,7 @@
         "react-tilt": "^1.0.2",
         "react-vertical-timeline-component": "^3.6.0",
         "resend": "^4.0.0",
-        "sharp": "^0.34.5",
+        "sharp": "^0.35.4",
         "three": "^0.160.0"
     },
     "devDependencies": {
